@@ -1,0 +1,39 @@
+version: '3.4'
+
+services:
+  mongosrv:
+    image: mongo
+
+  childhealthbook.web:
+    image: ${DOCKER_REGISTRY-}childhealthbookweb
+    build:
+      context: .
+      dockerfile: ChildHealthBook.Web/Dockerfile
+
+  childhealthbook.identity.api:
+    image: ${DOCKER_REGISTRY-}childhealthbookidentityapi
+    build:
+      context: .
+      dockerfile: ChildHealthBook.Identity.API/Dockerfile
+
+
+  childhealthbook.gateway.api:
+    image: ${DOCKER_REGISTRY-}childhealthbookgatewayapi
+    build:
+      context: .
+      dockerfile: ChildHealthBook.Gateway.API/Dockerfile
+
+
+  childhealthbook.child.api:
+    image: ${DOCKER_REGISTRY-}childhealthbookchildapi
+    build:
+      context: .
+      dockerfile: ChildHealthBook.Child.API/Dockerfile
+
+
+  childhealthbook.analytics.api:
+    image: ${DOCKER_REGISTRY-}childhealthbookanalyticsapi
+    build:
+      context: .
+      dockerfile: ChildHealthBook.Analytics.API/Dockerfile
+
