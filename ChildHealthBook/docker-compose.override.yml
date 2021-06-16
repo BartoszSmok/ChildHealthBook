@@ -1,0 +1,44 @@
+version: '3.4'
+
+services:
+  mongosrv:
+    container_name: mongosrv
+    restart: always
+    ports:
+      - "27017:27017"
+
+  childhealthbook.web:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "9000:80"
+
+  childhealthbook.identity.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "9001:80"
+
+  childhealthbook.gateway.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "9002:80"
+
+  childhealthbook.child.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "9003:80"
+
+  childhealthbook.analytics.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "9004:80"
+
+  childhealthbook.notification.service:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "9005:80"
