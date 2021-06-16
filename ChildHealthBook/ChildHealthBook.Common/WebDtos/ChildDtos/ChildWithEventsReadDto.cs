@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ChildHealthBook.Common.WebDtos.ChildDtos
 {
-    class ChildWithEventsReadDto
+    public class ChildWithEventsReadDto
     {
         public Guid Id { get; set; }
 

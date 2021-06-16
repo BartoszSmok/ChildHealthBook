@@ -1,9 +1,11 @@
-﻿namespace ChildHealthBook.Common.WebDtos.EventDtos
-{
-    class ShareEventCreateDto
-    {
-        public int EventId { get; set; }
+﻿using System;
 
-        public int ParentId { get; set; }
+namespace ChildHealthBook.Common.WebDtos.EventDtos
+{
+    public class ShareEventCreateDto
+    {
+        public Guid EventId { get; set; }
+
+        public Guid ParentId { get; set; }
     }
 }

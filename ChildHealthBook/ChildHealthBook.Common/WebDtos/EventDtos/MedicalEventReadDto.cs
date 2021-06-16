@@ -2,11 +2,11 @@
 
 namespace ChildHealthBook.Common.WebDtos.EventDtos
 {
-    class MedicalEventReadDto
+    public class MedicalEventReadDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
-        public int ChildId { get; set; }
+        public Guid ChildId { get; set; }
 
         public DateTime DateOfEvent { get; set; }
 

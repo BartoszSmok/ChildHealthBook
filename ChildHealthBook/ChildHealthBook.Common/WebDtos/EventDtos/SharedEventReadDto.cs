@@ -2,7 +2,7 @@
 
 namespace ChildHealthBook.Common.WebDtos.EventDtos
 {
-    class SharedEventReadDto
+    public class SharedEventReadDto
     {
         public string ChildFullName { get; set; }
 

@@ -2,7 +2,7 @@
 
 namespace ChildHealthBook.Common.WebDtos.ChildDtos
 {
-    class ChildReadDto
+    public class ChildReadDto
     {
         public Guid Id { get; set; }
 

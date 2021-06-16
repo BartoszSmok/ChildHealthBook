@@ -2,9 +2,9 @@
 
 namespace ChildHealthBook.Common.WebDtos.ChildDtos
 {
-    class ChildCreateDto
+    public class ChildCreateDto
     {
-        public int ParentId { get; set; }
+        public Guid ParentId { get; set; }
 
         public DateTime DateOfBirth { get; set; }
 

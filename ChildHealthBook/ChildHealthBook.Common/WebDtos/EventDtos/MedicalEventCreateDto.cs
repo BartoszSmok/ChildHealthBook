@@ -2,7 +2,7 @@
 
 namespace ChildHealthBook.Common.WebDtos.EventDtos
 {
-    class MedicalEventCreateDto
+    public class MedicalEventCreateDto
     {
         public DateTime DateOfEvent { get; set; }
 

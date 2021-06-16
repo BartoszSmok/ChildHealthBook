@@ -2,7 +2,7 @@
 
 namespace ChildHealthBook.Common.WebDtos.IdentityDtos
 {
-    class CredentialsDto
+    public class CredentialsDto
     {
         [Required]
         [MinLength(5), MaxLength(50)]

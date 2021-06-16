@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ChildHealthBook.Common.WebDtos.IdentityDtos
 {
-    class RegisterParentDto
+    public class RegisterParentDtof
     {
         [Required]
         [MinLength(5), MaxLength(50)]
