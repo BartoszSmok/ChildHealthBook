@@ -4,20 +4,35 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildHealthBook.Web", "ChildHealthBook.Web\ChildHealthBook.Web.csproj", "{9AF0C6B6-7FE9-4322-A9ED-B96C6C42ECB5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{47AFA414-1579-48FA-A19C-52F12D32EFE1} = {47AFA414-1579-48FA-A19C-52F12D32EFE1}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildHealthBook.Gateway.API", "ChildHealthBook.Gateway.API\ChildHealthBook.Gateway.API.csproj", "{1E8C14DC-E38E-4721-B74D-74E600D5337E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{47AFA414-1579-48FA-A19C-52F12D32EFE1} = {47AFA414-1579-48FA-A19C-52F12D32EFE1}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildHealthBook.Identity.API", "ChildHealthBook.Identity.API\ChildHealthBook.Identity.API.csproj", "{04632C9A-16CF-4826-93A7-55B4D6225E54}"
+	ProjectSection(ProjectDependencies) = postProject
+		{47AFA414-1579-48FA-A19C-52F12D32EFE1} = {47AFA414-1579-48FA-A19C-52F12D32EFE1}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildHealthBook.Child.API", "ChildHealthBook.Child.API\ChildHealthBook.Child.API.csproj", "{FF932306-B364-4479-B300-0A3099346AFB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{47AFA414-1579-48FA-A19C-52F12D32EFE1} = {47AFA414-1579-48FA-A19C-52F12D32EFE1}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildHealthBook.Analytics.API", "ChildHealthBook.Analytics.API\ChildHealthBook.Analytics.API.csproj", "{E333CE7C-BEB5-4141-B10C-7D021D72A44E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{47AFA414-1579-48FA-A19C-52F12D32EFE1} = {47AFA414-1579-48FA-A19C-52F12D32EFE1}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildHealthBook.Common", "ChildHealthBook.Common\ChildHealthBook.Common.csproj", "{47AFA414-1579-48FA-A19C-52F12D32EFE1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildHealthBook.Notification.Service", "ChildHealthBook.Notification.Service\ChildHealthBook.Notification.Service.csproj", "{759E2090-DA53-4ECC-8CC5-3E961FA31148}"
-EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{EA8B5BD9-61CB-480E-9D94-E08ED6E00555}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildHealthBook.Notification.Service", "ChildHealthBook.Notification.Service\ChildHealthBook.Notification.Service.csproj", "{81F32B1D-26C6-4BB8-A8E4-F2A0179EF189}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,14 +64,14 @@ Global
 		{47AFA414-1579-48FA-A19C-52F12D32EFE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47AFA414-1579-48FA-A19C-52F12D32EFE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47AFA414-1579-48FA-A19C-52F12D32EFE1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{759E2090-DA53-4ECC-8CC5-3E961FA31148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{759E2090-DA53-4ECC-8CC5-3E961FA31148}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{759E2090-DA53-4ECC-8CC5-3E961FA31148}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{759E2090-DA53-4ECC-8CC5-3E961FA31148}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EA8B5BD9-61CB-480E-9D94-E08ED6E00555}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA8B5BD9-61CB-480E-9D94-E08ED6E00555}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA8B5BD9-61CB-480E-9D94-E08ED6E00555}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA8B5BD9-61CB-480E-9D94-E08ED6E00555}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81F32B1D-26C6-4BB8-A8E4-F2A0179EF189}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81F32B1D-26C6-4BB8-A8E4-F2A0179EF189}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81F32B1D-26C6-4BB8-A8E4-F2A0179EF189}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81F32B1D-26C6-4BB8-A8E4-F2A0179EF189}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -37,3 +37,10 @@ services:
       context: .
       dockerfile: ChildHealthBook.Analytics.API/Dockerfile
 
+
+  childhealthbook.notification.service:
+    image: ${DOCKER_REGISTRY-}childhealthbooknotificationservice
+    build:
+      context: .
+      dockerfile: ChildHealthBook.Notification.Service/Dockerfile
+

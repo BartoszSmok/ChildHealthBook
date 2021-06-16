@@ -36,3 +36,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "9004:80"
+
+  childhealthbook.notification.service:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "9005:80"
