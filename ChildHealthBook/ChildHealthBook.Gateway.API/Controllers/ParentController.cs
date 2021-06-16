@@ -29,6 +29,14 @@ namespace ChildHealthBook.Gateway.API.Controllers
             return result == null ? NotFound() : Ok(result);
         }
 
+        //GetChildById - Get child pressed on web client / GET
+        [HttpGet("Child/{childId}")]
+        public async Task<ActionResult<ChildWithEventsReadDto>> GetChildByIdWithEvents(Guid childId)
+        {
+            ChildWithEventsReadDto result = await _gatewayService.GetChildByIdWithEvents(childId);
+            return result == null ? NotFound() : Ok(result);
+        }
+
         //AddNewChild - Add new child to parent / POST
         [HttpPost("Child")]
         public async Task<ActionResult> AddNewChild(ChildCreateDto childCreateDto)
@@ -38,7 +46,6 @@ namespace ChildHealthBook.Gateway.API.Controllers
         }
 
         /*
-            GetChildById - Get child pressed on web client / GET
             GetAllChildrenByParentId
             GetAllEvents - Get all child events / GET
             GetAllExaminations - Get all child examinations / GET

@@ -10,5 +10,6 @@ namespace ChildHealthBook.Gateway.API.Services
     {
         Task<IEnumerable<ChildReadDto>> GetAllChildren();
         Task AddNewChild(ChildCreateDto childCreateDto);
+        Task<ChildWithEventsReadDto> GetChildByIdWithEvents(Guid childId);
     }
 }

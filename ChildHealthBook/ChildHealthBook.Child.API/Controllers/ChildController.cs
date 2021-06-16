@@ -30,6 +30,17 @@ namespace ChildHealthBook.Child.API.Controllers
             return result == null ? NotFound() : Ok(result);
         }
 
+        //api/child/{childId} - Get child with events by query string childId / GET
+        [HttpGet("{childId}")]
+        public async Task<ActionResult<ChildWithEventsReadDto>> GetChildByIdWithEvents(Guid childId)
+        {
+            ChildWithEventsReadDto result = await _repository.GetChildByIdWithEvents(childId);
+            result.MedicalExaminations = await _repository.GetChildExaminations(childId);
+            result.PersonalEvents = await _repository.GetChildPersonalEvents(childId);
+            result.MedicalEvents = await _repository.GetChildMedicalEvents(childId);
+            return result == null ? NotFound() : Ok(result);
+        }
+
         //api/child/  - Add new child / POST
         [HttpPost("")]
         public async Task<ActionResult> AddNewChild(ChildCreateDto childCreateDto)
@@ -41,7 +52,6 @@ namespace ChildHealthBook.Child.API.Controllers
 
         /*
             api/child/parent/{parentId} - Get all children by query string parentId / GET
-            api/child/{childId} - Get child with events by query string childId / GET
             api/child/  - Add new child / POST
             -----------------------------------------
             api/analytics/ - Get all children data required for anylitcs purposes / GET

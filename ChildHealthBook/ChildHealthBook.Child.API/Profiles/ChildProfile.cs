@@ -9,7 +9,8 @@ namespace ProductsAPI.Profiles
         public ChildProfile()
         {
             CreateMap<ChildModel, ChildReadDto>();
-            CreateMap<ChildCreateDto, ChildModel> ();
+            CreateMap<ChildCreateDto, ChildModel>();
+            CreateMap<ChildModel, ChildWithEventsReadDto>();
         }
     }
 }

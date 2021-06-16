@@ -26,5 +26,11 @@ namespace ChildHealthBook.Gateway.API.Services
             IEnumerable<ChildReadDto> result = await _childClient.GetAllChildren();
             return result;
         }
+
+        public async Task<ChildWithEventsReadDto> GetChildByIdWithEvents(Guid childId)
+        {
+            ChildWithEventsReadDto result = await _childClient.GetChildByIdWithEvents(childId);
+            return result;
+        }
     }
 }

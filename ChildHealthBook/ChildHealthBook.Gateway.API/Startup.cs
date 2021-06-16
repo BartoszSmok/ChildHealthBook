@@ -31,7 +31,7 @@ namespace ChildHealthBook.Gateway.API
 
             services.AddHttpClient<ChildClient>(options =>
             {
-                options.BaseAddress = new Uri("http://examinationapi/");
+                options.BaseAddress = new Uri("http://childhealthbook.child.api/");
             });
 
             services.AddControllers();
