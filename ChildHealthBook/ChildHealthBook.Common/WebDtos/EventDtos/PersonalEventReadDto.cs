@@ -2,7 +2,7 @@
 
 namespace ChildHealthBook.Common.WebDtos.EventDtos
 {
-    public class PersonalEventReadDto6
+    public class PersonalEventReadDto
     {
         public Guid Id { get; set; }
 

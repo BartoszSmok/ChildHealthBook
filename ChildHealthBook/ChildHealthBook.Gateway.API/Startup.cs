@@ -1,3 +1,5 @@
+using ChildHealthBook.Gateway.API.Clients;
+using ChildHealthBook.Gateway.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +27,12 @@ namespace ChildHealthBook.Gateway.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IGatewayService, GatewayService>();
+
+            services.AddHttpClient<ChildClient>(options =>
+            {
+                options.BaseAddress = new Uri("http://examinationapi/");
+            });
 
             services.AddControllers();
         }
@@ -36,8 +44,6 @@ namespace ChildHealthBook.Gateway.API
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
