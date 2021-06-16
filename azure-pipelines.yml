@@ -11,7 +11,7 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '5f492199-10de-41a0-9f97-2021c94653be'
-  imageRepository: 'childhealthbook'
+  imageRepository: 'analyticsapi'
   containerRegistry: 'childhealthbook3.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/ChildHealthBook/ChildHealthBook.Analytics.API/Dockerfile'
   tag: '$(Build.BuildId)'
