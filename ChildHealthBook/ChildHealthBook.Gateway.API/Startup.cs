@@ -1,4 +1,3 @@
-using ChildHealthBook.Common;
 using ChildHealthBook.Gateway.API.Clients;
 using ChildHealthBook.Gateway.API.Services;
 using Microsoft.AspNetCore.Builder;
@@ -33,6 +32,7 @@ namespace ChildHealthBook.Gateway.API
             services.AddSingleton<IGatewayApiSettings>(sp => sp.GetRequiredService<IOptions<GatewayApiSettings>>().Value);
 
             services.AddTransient<IGatewayService, GatewayService>();
+            services.AddTransient<IAzureQueueClient, AzureQueueClient>();
 
             services.AddHttpClient<ChildClient>(options =>
             {

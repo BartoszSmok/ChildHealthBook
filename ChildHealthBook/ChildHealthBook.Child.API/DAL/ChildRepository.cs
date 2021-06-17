@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ChildHealthBook.Common.WebDtos.EventDtos;
-using ChildHealthBook.Common;
+using System.Text.Json;
 
 namespace ChildHealthBook.Child.API.DAL
 {
@@ -25,10 +25,10 @@ namespace ChildHealthBook.Child.API.DAL
             _mapper = mapper;
         }
 
-        public async Task AddNewChild(ChildCreateDto childCreateDto)
+        public async Task AddNewChild(string messageText)
         {
-            var newChild = _mapper.Map<ChildModel>(childCreateDto);
-            await _children.InsertOneAsync(newChild);
+            ChildModel childModel = JsonSerializer.Deserialize<ChildModel>(messageText);
+            await _children.InsertOneAsync(childModel);
         }
 
         public async Task<IEnumerable<ChildReadDto>> GetAllChildren()

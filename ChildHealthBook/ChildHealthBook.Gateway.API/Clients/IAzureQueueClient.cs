@@ -5,15 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ChildHealthBook.Gateway.API.Services
+namespace ChildHealthBook.Gateway.API.Clients
 {
-    public interface IGatewayService
+    public interface IAzureQueueClient
     {
-        Task<IEnumerable<ChildReadDto>> GetAllChildren();
-        Task AddNewChild(ChildCreateDto childCreateDto);
-        Task<ChildWithEventsReadDto> GetChildByIdWithEvents(Guid childId);
-        Task<IEnumerable<ChildReadDto>> GetAllChildrenByParentId(Guid parentId);
         Task AddNewPersonalEvent(PersonalEventCreateDto personalEventCreateDto);
+        Task AddNewChild(ChildCreateDto childCreateDto);
         Task AddNewMedicalEvent(MedicalEventCreateDto medicalEventCreateDto);
         Task AddNewExamination(MedicalExaminationCreateDto medicalExaminationCreateDto);
     }

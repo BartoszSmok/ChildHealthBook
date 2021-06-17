@@ -11,15 +11,32 @@ namespace ChildHealthBook.Gateway.API.Services
     public class GatewayService : IGatewayService
     {
         private ChildClient _childClient;
+        private IAzureQueueClient _azureQueueClient;
 
-        public GatewayService(ChildClient childClient)
+        public GatewayService(ChildClient childClient, IAzureQueueClient azureQueueClient)
         {
             _childClient = childClient;
+            _azureQueueClient = azureQueueClient;
         }
 
         public async Task AddNewChild(ChildCreateDto childCreateDto)
         {
-            await _childClient.AddNewChild(childCreateDto);
+            await _azureQueueClient.AddNewChild(childCreateDto);
+        }
+
+        public async Task AddNewExamination(MedicalExaminationCreateDto medicalExaminationCreateDto)
+        {
+            await _azureQueueClient.AddNewExamination(medicalExaminationCreateDto);
+        }
+
+        public async Task AddNewMedicalEvent(MedicalEventCreateDto medicalEventCreateDto)
+        {
+            await _azureQueueClient.AddNewMedicalEvent(medicalEventCreateDto);
+        }
+
+        public async Task AddNewPersonalEvent(PersonalEventCreateDto personalEventCreateDto)
+        {
+            await _azureQueueClient.AddNewPersonalEvent(personalEventCreateDto);
         }
 
         public async Task<IEnumerable<ChildReadDto>> GetAllChildren()
@@ -39,5 +56,7 @@ namespace ChildHealthBook.Gateway.API.Services
             ChildWithEventsReadDto result = await _childClient.GetChildByIdWithEvents(childId);
             return result;
         }
+
+
     }
 }

@@ -22,19 +22,6 @@ namespace ChildHealthBook.Gateway.API.Clients
             return await _httpClient.GetFromJsonAsync<IEnumerable<ChildReadDto>>($"/api/child");
         }
 
-        internal async Task AddNewChild(ChildCreateDto childCreateDto)
-        {
-            //await _httpClient.PostAsJsonAsync($"/api/child", JsonContent.Create<ChildCreateDto>(childCreateDto).ToString());
-            await _httpClient.PostAsJsonAsync($"/api/child",
-                new ChildCreateDto { 
-                    ParentId = childCreateDto.ParentId,
-                    DateOfBirth = childCreateDto.DateOfBirth,
-                    FullName = childCreateDto.FullName,
-                    CurrentWeight = childCreateDto.CurrentWeight,
-                    CurrentHeight = childCreateDto.CurrentHeight
-                });
-        }
-
         internal async Task<IEnumerable<ChildReadDto>> GetAllChildrenByParentId(Guid parentId)
         {
             return await _httpClient.GetFromJsonAsync<IEnumerable<ChildReadDto>>($"/api/child/parent/{parentId}");

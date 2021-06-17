@@ -1,6 +1,6 @@
+using ChildHealthBook.Child.API.Clients;
 using ChildHealthBook.Child.API.DAL;
 using ChildHealthBook.Child.API.Models;
-using ChildHealthBook.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +34,11 @@ namespace ChildHealthBook.Child.API
 
             services.AddTransient<IChildRepository, ChildRepository>();
             services.AddTransient<IEventRepository, EventRepository>();
+
+            services.AddHostedService<AddNewChildQueueClient>();
+            services.AddHostedService<AddMedicalEventQueueClient>();
+            services.AddHostedService<AddPersonalEventQueueClient>();
+            services.AddHostedService<AddExaminationQueueClient>();
 
             services.AddControllers();
 

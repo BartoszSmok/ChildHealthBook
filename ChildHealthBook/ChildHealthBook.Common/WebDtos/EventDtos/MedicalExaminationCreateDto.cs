@@ -4,6 +4,8 @@ namespace ChildHealthBook.Common.WebDtos.EventDtos
 {
     public class MedicalExaminationCreateDto
     {
+        public Guid ChildId { get; set; }
+
         public DateTime DateOfMedicalExamination { get; set; }
 
         public string ExaminationType { get; set; }
