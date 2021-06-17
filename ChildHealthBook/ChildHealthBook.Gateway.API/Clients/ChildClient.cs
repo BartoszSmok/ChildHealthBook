@@ -35,6 +35,11 @@ namespace ChildHealthBook.Gateway.API.Clients
                 });
         }
 
+        internal async Task<IEnumerable<ChildReadDto>> GetAllChildrenByParentId(Guid parentId)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<ChildReadDto>>($"/api/child/parent/{parentId}");
+        }
+
         internal async Task<ChildWithEventsReadDto> GetChildByIdWithEvents(Guid childId)
         {
             return await _httpClient.GetFromJsonAsync<ChildWithEventsReadDto>($"/api/child/{childId}");

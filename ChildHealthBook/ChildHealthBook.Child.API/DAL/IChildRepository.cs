@@ -13,8 +13,6 @@ namespace ChildHealthBook.Child.API.DAL
         Task<IEnumerable<ChildReadDto>> GetAllChildren();
         Task AddNewChild(ChildCreateDto childCreateDto);
         Task<ChildWithEventsReadDto> GetChildByIdWithEvents(Guid childId);
-        Task<IEnumerable<MedicalExaminationReadDto>> GetChildExaminations(Guid childId);
-        Task<IEnumerable<PersonalEventReadDto>> GetChildPersonalEvents(Guid childId);
-        Task<IEnumerable<MedicalEventReadDto>> GetChildMedicalEvents(Guid childId);
+        Task<IEnumerable<ChildReadDto>> GetAllChildrenByParentId(Guid parentId);
     }
 }

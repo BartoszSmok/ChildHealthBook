@@ -1,4 +1,5 @@
 ﻿using ChildHealthBook.Common.WebDtos.ChildDtos;
+using ChildHealthBook.Common.WebDtos.EventDtos;
 using ChildHealthBook.Gateway.API.Clients;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,12 @@ namespace ChildHealthBook.Gateway.API.Services
         public async Task<IEnumerable<ChildReadDto>> GetAllChildren()
         {
             IEnumerable<ChildReadDto> result = await _childClient.GetAllChildren();
+            return result;
+        }
+
+        public async Task<IEnumerable<ChildReadDto>> GetAllChildrenByParentId(Guid parentId)
+        {
+            IEnumerable<ChildReadDto> result = await _childClient.GetAllChildrenByParentId(parentId);
             return result;
         }
 

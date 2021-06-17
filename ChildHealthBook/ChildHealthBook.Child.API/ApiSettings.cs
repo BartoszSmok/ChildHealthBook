@@ -1,4 +1,4 @@
-﻿namespace ChildHealthBook.Child.API.Models
+﻿namespace ChildHealthBook.Common
 {
     public class ApiSettings : IApiSettings
     {
@@ -9,6 +9,9 @@
         public string ExaminationCollectionName { get; set; }
         public string PersonalEventCollectionName { get; set; }
         public string MedicalEventCollectionName { get; set; }
+
+        public string StorageConnectionString { get; set; }
+        public string AddNewChildPersonalEventQueue { get; set; }
     }
 
     public interface IApiSettings
@@ -20,5 +23,8 @@
         string ExaminationCollectionName { get; set; }
         string PersonalEventCollectionName { get; set; }
         string MedicalEventCollectionName { get; set; }
+
+        string StorageConnectionString { get; set; }
+        string AddNewChildPersonalEventQueue { get; set; }
     }
 }

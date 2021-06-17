@@ -1,5 +1,6 @@
 using ChildHealthBook.Child.API.DAL;
 using ChildHealthBook.Child.API.Models;
+using ChildHealthBook.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,7 @@ namespace ChildHealthBook.Child.API
             services.AddSingleton<IApiSettings>(sp => sp.GetRequiredService<IOptions<ApiSettings>>().Value);
 
             services.AddTransient<IChildRepository, ChildRepository>();
+            services.AddTransient<IEventRepository, EventRepository>();
 
             services.AddControllers();
 
