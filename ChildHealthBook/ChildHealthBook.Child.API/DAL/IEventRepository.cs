@@ -11,5 +11,8 @@ namespace ChildHealthBook.Child.API.DAL
         Task<IEnumerable<MedicalExaminationReadDto>> GetChildExaminations(Guid childId);
         Task<IEnumerable<PersonalEventReadDto>> GetChildPersonalEvents(Guid childId);
         Task<IEnumerable<MedicalEventReadDto>> GetChildMedicalEvents(Guid childId);
+        Task AddNewPersonalEvent(string messageText);
+        Task AddNewMedicalEvent(string messageText);
+        Task AddNewExamination(string messageText);
     }
 }

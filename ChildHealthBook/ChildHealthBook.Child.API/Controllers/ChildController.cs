@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ChildHealthBook.Common.WebDtos.ChildDtos;
 using ChildHealthBook.Child.API.DAL;
+using ChildHealthBook.Child.API.Clients;
 
 namespace ChildHealthBook.Child.API.Controllers
 {
@@ -51,14 +52,6 @@ namespace ChildHealthBook.Child.API.Controllers
             return result == null ? NotFound() : Ok(result);
         }
 
-        //api/child/  - Add new child / POST
-        [HttpPost("")]
-        public async Task<ActionResult> AddNewChild(ChildCreateDto childCreateDto)
-        {
-            await _childRepository.AddNewChild(childCreateDto);
-            return NoContent();
-        }
-
         //api/analytics/ - Get all children data required for anylitcs purposes / GET
         [HttpGet("Analytics")]
         public async Task<ActionResult<IEnumerable<ChildWithEventsReadDto>>> GetAllChildrenWithEvents(Guid childId)
@@ -67,7 +60,7 @@ namespace ChildHealthBook.Child.API.Controllers
 
             foreach (var item in result)
             {
-                item.MedicalExaminations = await _eventRepository.GetChildExaminations(childId);
+                item.MedicalExaminations =  await _eventRepository.GetChildExaminations(childId);
                 item.PersonalEvents = await _eventRepository.GetChildPersonalEvents(childId);
                 item.MedicalEvents = await _eventRepository.GetChildMedicalEvents(childId);
             }
@@ -81,8 +74,6 @@ namespace ChildHealthBook.Child.API.Controllers
             
             -----------------------------------------
             api/event/shared/{parentId} - Get all shared events by query string parentId / GET
-            api/event/child/{childId} - Add new event to child with id / POST
-            api/event/child/examination/{childId} - Add new examination to child with Id / POST
             api/event/examination/child/{childId} - Get all child examination by query string childId / GET 
             api/event/examination/{examinationId} - Get examination by Id / GET
             api/event/{eventId} - Update event with Id / PUT

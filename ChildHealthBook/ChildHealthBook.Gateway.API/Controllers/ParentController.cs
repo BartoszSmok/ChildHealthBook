@@ -54,11 +54,34 @@ namespace ChildHealthBook.Gateway.API.Controllers
             return NoContent();
         }
 
+        //AddNewPersonalEvent - Add new event to a child / POST
+        [HttpPost("Child/PersonalEvent")]
+        public async Task<ActionResult> AddNewPersonalEvent(PersonalEventCreateDto personalEventCreateDto)
+        {
+            await _gatewayService.AddNewPersonalEvent(personalEventCreateDto);
+            return NoContent();
+        }
+
+        //AddNewMedicalEvent - Add new event to a child / POST
+        [HttpPost("Child/MedicalEvent")]
+        public async Task<ActionResult> AddNewMedicalEvent(MedicalEventCreateDto medicalEventCreateDto)
+        {
+            await _gatewayService.AddNewMedicalEvent(medicalEventCreateDto);
+            return NoContent();
+        }
+
+        //api/event/child/examination/{childId} - Add new examination to child with Id / POST
+        //AddNewExamination - Add new examination to a child / POST
+        [HttpPost("Child/Examination")]
+        public async Task<ActionResult> AddNewExamination(MedicalExaminationCreateDto medicalExaminationCreateDto)
+        {
+            await _gatewayService.AddNewExamination(medicalExaminationCreateDto);
+            return NoContent();
+        }
+
         /*
             GetAllEvents - Get all child events / GET
             GetAllExaminations - Get all child examinations / GET
-            AddNewExamination - Add new examination to a child / POST
-            AddNewPersonalEvent - Add new event to a child / POST
             GetAllSharedEvents - Get all events shared for this parent by other parent / GET
             ShareEventWithParent - Share selected event with another parent / PUT
          */

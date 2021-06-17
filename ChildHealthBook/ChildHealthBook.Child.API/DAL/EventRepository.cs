@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using ChildHealthBook.Child.API.Models;
-using ChildHealthBook.Common;
 using ChildHealthBook.Common.WebDtos.EventDtos;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace ChildHealthBook.Child.API.DAL
@@ -26,6 +26,24 @@ namespace ChildHealthBook.Child.API.DAL
             _medicalEvents = database.GetCollection<MedicalEventModel>(apiSettings.MedicalEventCollectionName);
 
             _mapper = mapper;
+        }
+
+        public async Task AddNewExamination(string messageText)
+        {
+            ExaminationModel examinationModel = JsonSerializer.Deserialize<ExaminationModel>(messageText);
+            await _examinations.InsertOneAsync(examinationModel);
+        }
+
+        public async Task AddNewMedicalEvent(string messageText)
+        {
+            MedicalEventModel medicalEventModel = JsonSerializer.Deserialize<MedicalEventModel>(messageText);
+            await _medicalEvents.InsertOneAsync(medicalEventModel);
+        }
+
+        public async Task AddNewPersonalEvent(string messageText)
+        {
+            PersonalEventModel personalEventModel = JsonSerializer.Deserialize<PersonalEventModel>(messageText);
+            await _personalEvents.InsertOneAsync(personalEventModel);
         }
 
         public async Task<IEnumerable<MedicalExaminationReadDto>> GetChildExaminations(Guid childId)
