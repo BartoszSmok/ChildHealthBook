@@ -7,11 +7,6 @@ services:
     ports:
       - "27017:27017"
 
-  childhealthbook.web:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "9000:80"
 
   childhealthbook.identity.api:
     environment:
@@ -42,3 +37,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "9005:80"
+
+  childhealthbook.web:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "9000:80"

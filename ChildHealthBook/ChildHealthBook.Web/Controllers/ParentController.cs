@@ -10,21 +10,20 @@ namespace ChildHealthBook.Web.Controllers
 {
     public class ParentController : Controller
     {
-        //ParentService _parentService;
-        //public ParentController(ParentService parentService)
-        //{
-        //    _parentService = parentService;
-        //}
+        ParentService _parentService;
+        public ParentController(ParentService parentService)
+        {
+            _parentService = parentService;
+        }
 
         public async Task<IActionResult> ChildrenIndex()
         {
-            //var childrens = await _parentService.GetMyChildren(new Guid());
-            //if (childrens != null)
-            //{
-            //    return View(childrens);
-            //}
-            //return RedirectToAction("Index", "Home");
-            return View();
+            var childrens = await _parentService.GetMyChildren();
+            if (childrens != null)
+            {
+                return View(childrens);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> ChildCreate()
@@ -32,15 +31,19 @@ namespace ChildHealthBook.Web.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> ChildCreate(ChildCreateDto childCreateDto)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-
-        //    }
-        //    return View(childCreateDto);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> ChildCreate(ChildCreateDto childCreateDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _parentService.CreateChild(childCreateDto);
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("ChildrenIndex", "Parent");
+                }
+            }
+            return View(childCreateDto);
+        }
 
         public async Task<IActionResult> ChildDetails(Guid childId)
         {

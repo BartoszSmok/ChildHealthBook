@@ -4,11 +4,6 @@ services:
   mongosrv:
     image: mongo
 
-  childhealthbook.web:
-    image: ${DOCKER_REGISTRY-}childhealthbookweb
-    build:
-      context: .
-      dockerfile: ChildHealthBook.Web/Dockerfile
 
   childhealthbook.identity.api:
     image: ${DOCKER_REGISTRY-}childhealthbookidentityapi
@@ -43,4 +38,11 @@ services:
     build:
       context: .
       dockerfile: ChildHealthBook.Notification.Service/Dockerfile
+
+
+  childhealthbook.web:
+    image: ${DOCKER_REGISTRY-}childhealthbookweb
+    build:
+      context: .
+      dockerfile: ChildHealthBook.Web/Dockerfile
 
