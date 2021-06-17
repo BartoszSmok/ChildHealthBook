@@ -1,6 +1,6 @@
 ﻿namespace ChildHealthBook.Common
 {
-    public class ApiSettings : IApiSettings
+    public class ChildApiSettings : IChildApiSettings
     {
         public string DatabaseName { get; set; }
         public string ConnectionString { get; set; }
@@ -14,7 +14,7 @@
         public string AddNewChildPersonalEventQueue { get; set; }
     }
 
-    public interface IApiSettings
+    public interface IChildApiSettings
     {
         string DatabaseName { get; set; }
         string ConnectionString { get; set; }

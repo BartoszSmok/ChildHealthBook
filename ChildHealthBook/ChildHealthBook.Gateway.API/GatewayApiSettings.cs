@@ -1,12 +1,12 @@
 ﻿namespace ChildHealthBook.Common
 {
-    public class ApiSettings : IApiSettings
+    public class GatewayApiSettings : IGatewayApiSettings
     {
         public string StorageConnectionString { get; set; }
         public string AddNewChildPersonalEventQueue { get; set; }
     }
 
-    public interface IApiSettings
+    public interface IGatewayApiSettings
     {
         string StorageConnectionString { get; set; }
         string AddNewChildPersonalEventQueue { get; set; }

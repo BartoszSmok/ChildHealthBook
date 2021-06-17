@@ -29,8 +29,8 @@ namespace ChildHealthBook.Gateway.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<ApiSettings>(Configuration.GetSection(nameof(ApiSettings)));
-            services.AddSingleton<IApiSettings>(sp => sp.GetRequiredService<IOptions<ApiSettings>>().Value);
+            services.Configure<GatewayApiSettings>(Configuration.GetSection(nameof(GatewayApiSettings)));
+            services.AddSingleton<IGatewayApiSettings>(sp => sp.GetRequiredService<IOptions<GatewayApiSettings>>().Value);
 
             services.AddTransient<IGatewayService, GatewayService>();
 

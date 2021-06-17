@@ -29,8 +29,8 @@ namespace ChildHealthBook.Child.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<ApiSettings>(Configuration.GetSection(nameof(ApiSettings)));
-            services.AddSingleton<IApiSettings>(sp => sp.GetRequiredService<IOptions<ApiSettings>>().Value);
+            services.Configure<ChildApiSettings>(Configuration.GetSection(nameof(ChildApiSettings)));
+            services.AddSingleton<IChildApiSettings>(sp => sp.GetRequiredService<IOptions<ChildApiSettings>>().Value);
 
             services.AddTransient<IChildRepository, ChildRepository>();
             services.AddTransient<IEventRepository, EventRepository>();

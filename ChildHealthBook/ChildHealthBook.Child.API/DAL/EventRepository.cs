@@ -17,7 +17,7 @@ namespace ChildHealthBook.Child.API.DAL
         private readonly IMongoCollection<MedicalEventModel> _medicalEvents;
         private readonly IMapper _mapper;
 
-        public EventRepository(IApiSettings apiSettings, IMapper mapper)
+        public EventRepository(IChildApiSettings apiSettings, IMapper mapper)
         {
             var client = new MongoClient(apiSettings.ConnectionString);
             var database = client.GetDatabase(apiSettings.DatabaseName);
