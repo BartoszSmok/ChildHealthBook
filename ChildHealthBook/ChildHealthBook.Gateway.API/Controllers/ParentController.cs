@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using ChildHealthBook.Gateway.API.Services;
+using ChildHealthBook.Common.WebDtos.EventDtos;
 
 namespace ChildHealthBook.Gateway.API.Controllers
 {
@@ -29,6 +30,22 @@ namespace ChildHealthBook.Gateway.API.Controllers
             return result == null ? NotFound() : Ok(result);
         }
 
+        //GetAllChildrenByParentId - Get all children by query string parentId / GET
+        [HttpGet("{parentId}")]
+        public async Task<ActionResult<IEnumerable<ChildReadDto>>> GetAllChildrenByParentId(Guid parentId)
+        {
+            IEnumerable<ChildReadDto> result = await _gatewayService.GetAllChildrenByParentId(parentId);
+            return result == null ? NotFound() : Ok(result);
+        }
+
+        //GetChildById - Get child pressed on web client / GET
+        [HttpGet("Child/{childId}")]
+        public async Task<ActionResult<ChildWithEventsReadDto>> GetChildByIdWithEvents(Guid childId)
+        {
+            ChildWithEventsReadDto result = await _gatewayService.GetChildByIdWithEvents(childId);
+            return result == null ? NotFound() : Ok(result);
+        }
+
         //AddNewChild - Add new child to parent / POST
         [HttpPost("Child")]
         public async Task<ActionResult> AddNewChild(ChildCreateDto childCreateDto)
@@ -38,12 +55,10 @@ namespace ChildHealthBook.Gateway.API.Controllers
         }
 
         /*
-            GetChildById - Get child pressed on web client / GET
-            GetAllChildrenByParentId
             GetAllEvents - Get all child events / GET
             GetAllExaminations - Get all child examinations / GET
-            AddNewEvent - Add new event to a child / POST
             AddNewExamination - Add new examination to a child / POST
+            AddNewPersonalEvent - Add new event to a child / POST
             GetAllSharedEvents - Get all events shared for this parent by other parent / GET
             ShareEventWithParent - Share selected event with another parent / PUT
          */

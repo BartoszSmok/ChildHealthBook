@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using ChildHealthBook.Common.WebDtos.EventDtos;
+using ChildHealthBook.Common;
 
 namespace ChildHealthBook.Child.API.DAL
 {
@@ -14,7 +16,7 @@ namespace ChildHealthBook.Child.API.DAL
         private readonly IMongoCollection<ChildModel> _children;
         private readonly IMapper _mapper;
 
-        public ChildRepository(IApiSettings apiSettings, IMapper mapper)
+        public ChildRepository(IChildApiSettings apiSettings, IMapper mapper)
         {
             var client = new MongoClient(apiSettings.ConnectionString);
             var database = client.GetDatabase(apiSettings.DatabaseName);
@@ -31,8 +33,26 @@ namespace ChildHealthBook.Child.API.DAL
 
         public async Task<IEnumerable<ChildReadDto>> GetAllChildren()
         {
-            var result = await _children.Find(ChildModel => true).ToListAsync();
+            var result = await _children.Find<ChildModel>(childModel => true).ToListAsync();
             return _mapper.Map<IEnumerable<ChildReadDto>>(result);
+        }
+
+        public async Task<IEnumerable<ChildReadDto>> GetAllChildrenByParentId(Guid parentId)
+        {
+            var result = await _children.Find<ChildModel>(childmodel => childmodel.ParentId == parentId).ToListAsync();
+            return _mapper.Map<IEnumerable<ChildReadDto>>(result);
+        }
+
+        public async Task<IEnumerable<ChildWithEventsReadDto>> GetAllChildrenWithEvents()
+        {
+            var result = await _children.Find<ChildModel>(childModel => true).ToListAsync();
+            return _mapper.Map<IEnumerable<ChildWithEventsReadDto>>(result);
+        }
+
+        public async Task<ChildWithEventsReadDto> GetChildByIdWithEvents(Guid childId)
+        {
+            var result = await _children.Find<ChildModel>(childmodel => childmodel.Id == childId).FirstOrDefaultAsync();
+            return _mapper.Map<ChildWithEventsReadDto>(result);
         }
 
         //public List<Material> GetAll() => _materials.Find(material => true).ToList();

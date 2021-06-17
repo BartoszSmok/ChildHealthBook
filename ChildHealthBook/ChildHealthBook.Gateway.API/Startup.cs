@@ -1,3 +1,4 @@
+using ChildHealthBook.Common;
 using ChildHealthBook.Gateway.API.Clients;
 using ChildHealthBook.Gateway.API.Services;
 using Microsoft.AspNetCore.Builder;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +29,14 @@ namespace ChildHealthBook.Gateway.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<GatewayApiSettings>(Configuration.GetSection(nameof(GatewayApiSettings)));
+            services.AddSingleton<IGatewayApiSettings>(sp => sp.GetRequiredService<IOptions<GatewayApiSettings>>().Value);
+
             services.AddTransient<IGatewayService, GatewayService>();
 
             services.AddHttpClient<ChildClient>(options =>
             {
-                options.BaseAddress = new Uri("http://examinationapi/");
+                options.BaseAddress = new Uri("http://childhealthbook.child.api/");
             });
 
             services.AddControllers();

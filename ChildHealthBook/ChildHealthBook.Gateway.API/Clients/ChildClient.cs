@@ -17,12 +17,12 @@ namespace ChildHealthBook.Gateway.API.Clients
             _httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<ChildReadDto>> GetAllChildren()
+        internal async Task<IEnumerable<ChildReadDto>> GetAllChildren()
         {
             return await _httpClient.GetFromJsonAsync<IEnumerable<ChildReadDto>>($"/api/child");
         }
 
-        public async Task AddNewChild(ChildCreateDto childCreateDto)
+        internal async Task AddNewChild(ChildCreateDto childCreateDto)
         {
             //await _httpClient.PostAsJsonAsync($"/api/child", JsonContent.Create<ChildCreateDto>(childCreateDto).ToString());
             await _httpClient.PostAsJsonAsync($"/api/child",
@@ -33,6 +33,16 @@ namespace ChildHealthBook.Gateway.API.Clients
                     CurrentWeight = childCreateDto.CurrentWeight,
                     CurrentHeight = childCreateDto.CurrentHeight
                 });
+        }
+
+        internal async Task<IEnumerable<ChildReadDto>> GetAllChildrenByParentId(Guid parentId)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<ChildReadDto>>($"/api/child/parent/{parentId}");
+        }
+
+        internal async Task<ChildWithEventsReadDto> GetChildByIdWithEvents(Guid childId)
+        {
+            return await _httpClient.GetFromJsonAsync<ChildWithEventsReadDto>($"/api/child/{childId}");
         }
     }
 }
