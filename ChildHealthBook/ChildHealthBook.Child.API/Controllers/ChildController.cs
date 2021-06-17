@@ -59,10 +59,26 @@ namespace ChildHealthBook.Child.API.Controllers
             return NoContent();
         }
 
+        //api/analytics/ - Get all children data required for anylitcs purposes / GET
+        [HttpGet("Analytics")]
+        public async Task<ActionResult<IEnumerable<ChildWithEventsReadDto>>> GetAllChildrenWithEvents(Guid childId)
+        {
+            IEnumerable<ChildWithEventsReadDto> result = await _childRepository.GetAllChildrenWithEvents();
+
+            foreach (var item in result)
+            {
+                item.MedicalExaminations = await _eventRepository.GetChildExaminations(childId);
+                item.PersonalEvents = await _eventRepository.GetChildPersonalEvents(childId);
+                item.MedicalEvents = await _eventRepository.GetChildMedicalEvents(childId);
+            }
+
+            return result == null ? NotFound() : Ok(result);
+        }
+
 
         /*
             -----------------------------------------
-            api/analytics/ - Get all children data required for anylitcs purposes / GET
+            
             -----------------------------------------
             api/event/shared/{parentId} - Get all shared events by query string parentId / GET
             api/event/child/{childId} - Add new event to child with id / POST
