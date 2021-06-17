@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ChildHealthBook.Common.WebDtos.ChildDtos
+namespace ChildHealthBook.Web.Models.ChildDtos
 {
-    public class ChildReadDto
+    public class ChildCreateDto
     {
-        public Guid Id { get; set; }
         public Guid ParentId { get; set; }
 
         public DateTime DateOfBirth { get; set; }

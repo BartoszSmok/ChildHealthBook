@@ -1,0 +1,98 @@
+﻿@model ChildHealthBook.Web.Models.AnalyticsDtos.SharedStats
+<div class="container p-4 border">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primary">Vaccination Factor</h1>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Vaccination Factor
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                <tr>
+                    <td>
+                        @Model.VaccinationFactor
+                    </td>
+                    <td>
+                        <a class="btn btn-info float-right" asp-action="VaccinationHistory">History
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+    </table>
+</div>
+<br />
+<div class="container p-4 border">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primary">Children Avarage Age</h1>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Children Avarage Age
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                <tr>
+                    <td>
+                        @Model.ChildrenAverageAge
+                    </td>
+                    <td></td>
+                    <td>
+                        <a class="btn btn-info float-right" asp-action="AvarageAgeHistory">History</a>
+                        
+                    </td>
+                </tr>
+            }
+            </tbody>
+    </table>
+</div>
+
+<br />
+<div class="container p-4 border">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primary">Average Children Count Per Parent</h1>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Average Children Count Per Parent
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                <tr>
+                    <td>
+                        @Model.AverageChildrenCountPerParent
+                    </td>
+                    <td>
+                        <a class="btn btn-info float-right" asp-action="ChildrenCountHistory">History</a>
+                        
+                    </td>
+                </tr>
+            }
+            </tbody>
+    </table>
+</div>

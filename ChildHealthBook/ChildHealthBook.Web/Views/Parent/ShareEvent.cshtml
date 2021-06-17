@@ -1,0 +1,43 @@
+﻿
+@model IEnumerable<ChildHealthBook.Web.Models.IdentityDtos.ParentReadDto>
+
+<form asp-action="ShareEvent">
+    <div class="container p-4 border">
+        <div class="row pb-2">
+            <div class="col">
+                <h1 class="text-primary">Choose parent</h1>
+            </div>
+
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        FullName
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    if (Model.Count() > 0)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.FirstName + @item.LastName
+                                </td>
+                                <td>
+                                    <a class="btn btn-info" asp-action="Share">Share
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+                        </tbody>
+        </table>
+    </div>
+</form>

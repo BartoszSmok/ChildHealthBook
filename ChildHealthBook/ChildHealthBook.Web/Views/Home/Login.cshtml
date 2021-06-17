@@ -1,0 +1,41 @@
+﻿@model ChildHealthBook.Web.Models.IdentityDtos.CredentialsDto
+
+
+<h2>Sign in</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            <form method="post" id="account" asp-action="Index" asp-controller="Home">
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Login" class="col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Login" class="form-control">
+                        <span class="text-danger" asp-validation-for="Login"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password" class="col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Password" class="form-control">
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10 offset-md-1">
+                        <input type="submit" value="Log in" class="btn btn-success">
+                    </div>
+                </div>
+
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
