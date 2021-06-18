@@ -1,4 +1,5 @@
 ﻿using ChildHealthBook.Web.Models.ChildDtos;
+using ChildHealthBook.Web.Models.EventDtos;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace ChildHealthBook.Web.Services
 
         public async Task<ChildWithEventsReadDto> GetChildByIdWithEvents(Guid childId)
         {
-            string url = "http://childhealthbook.gateway.api/Gateway/Child/{childId}";
+            string url = $"http://childhealthbook.gateway.api/Gateway/Child/{childId}";
 
             var response = await _httpClient.GetAsync(url);
             if (response.IsSuccessStatusCode)
@@ -57,6 +58,21 @@ namespace ChildHealthBook.Web.Services
                 return childConverted;
             }
             return null;
+        }
+
+        public async Task<HttpResponseMessage> CreatePersonalEvent(PersonalEventCreateDto personalEventCreateDto, Guid childId)
+        {
+            var responseMessage = await _httpClient.PostAsJsonAsync($"http://childhealthbook.gateway.api/Gateway/Child/PersonalEvent",
+                new PersonalEventCreateDto
+                {
+                   ChildId = childId,
+                   DateOfEvent = personalEventCreateDto.DateOfEvent,
+                   EventType = "Personal Event",
+                   EventTitle = personalEventCreateDto.EventTitle,
+                   Comment = personalEventCreateDto.Comment
+
+                });
+            return responseMessage;
         }
     }
 

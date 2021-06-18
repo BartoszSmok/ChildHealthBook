@@ -1,4 +1,5 @@
 ﻿using ChildHealthBook.Web.Models.ChildDtos;
+using ChildHealthBook.Web.Models.EventDtos;
 using ChildHealthBook.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -47,7 +48,12 @@ namespace ChildHealthBook.Web.Controllers
 
         public async Task<IActionResult> ChildDetails(Guid childId)
         {
-            return View();
+            var child = await _parentService.GetChildByIdWithEvents(childId);
+            if (child != null)
+            {
+                return View(child);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> ExaminationCreate()
@@ -55,9 +61,17 @@ namespace ChildHealthBook.Web.Controllers
             return View();
         }
 
-        public async Task<IActionResult> PersonalEventCreate()
+        public async Task<IActionResult> PersonalEventCreate(PersonalEventCreateDto personalEventCreateDto, Guid childId)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var result = await _parentService.CreatePersonalEvent(personalEventCreateDto, childId);
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("ChildDetails", "Parent");
+                }
+            }
+            return View(personalEventCreateDto);
         }
         public async Task<IActionResult> MedicalEventCreate()
         {

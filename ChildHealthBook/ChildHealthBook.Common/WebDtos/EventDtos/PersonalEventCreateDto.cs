@@ -4,7 +4,6 @@ namespace ChildHealthBook.Common.WebDtos.EventDtos
 {
     public class PersonalEventCreateDto
     {
-        public Guid ChildId { get; set; }
 
         public DateTime DateOfEvent { get; set; }
 

@@ -7,6 +7,7 @@ namespace ChildHealthBook.Web.Models.EventDtos
 {
     public class PersonalEventCreateDto
     {
+        public Guid ChildId { get; set; }
         public DateTime DateOfEvent { get; set; }
 
         public string EventType { get; set; }
