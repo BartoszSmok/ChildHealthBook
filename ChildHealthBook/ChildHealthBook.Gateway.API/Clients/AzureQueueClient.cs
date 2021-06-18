@@ -27,6 +27,7 @@ namespace ChildHealthBook.Gateway.API.Clients
 
         public async Task AddNewExamination(MedicalExaminationCreateDto medicalExaminationCreateDto)
         {
+            Console.WriteLine("1a");
             SendMessageToQueue(_apiSettings.AddNewExaminationQueue, JsonSerializer.Serialize(medicalExaminationCreateDto));
         }
 
@@ -38,6 +39,12 @@ namespace ChildHealthBook.Gateway.API.Clients
         public async Task AddNewPersonalEvent(PersonalEventCreateDto personalEventCreateDto)
         {
             SendMessageToQueue(_apiSettings.AddNewPersonalEventQueue, JsonSerializer.Serialize(personalEventCreateDto));
+        }
+
+        public async Task SendToNotificationService(ExaminationNotificationDto examinationNotificationDto)
+        {
+            Console.WriteLine("DUPA" + _apiSettings.SendExaminationToNotificationQueue);
+            SendMessageToQueue(_apiSettings.SendExaminationToNotificationQueue, JsonSerializer.Serialize(examinationNotificationDto));
         }
 
         private void SendMessageToQueue(string queueName, string queueMessage)

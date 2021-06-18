@@ -15,5 +15,6 @@ namespace ChildHealthBook.Child.API.DAL
         Task<ChildWithEventsReadDto> GetChildByIdWithEvents(Guid childId);
         Task<IEnumerable<ChildReadDto>> GetAllChildrenByParentId(Guid parentId);
         Task<IEnumerable<ChildWithEventsReadDto>> GetAllChildrenWithEvents();
+        Task<ChildReadDto> GetChildById(Guid childId);
     }
 }

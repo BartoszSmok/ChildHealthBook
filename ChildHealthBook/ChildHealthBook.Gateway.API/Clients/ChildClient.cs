@@ -29,7 +29,13 @@ namespace ChildHealthBook.Gateway.API.Clients
 
         internal async Task<ChildWithEventsReadDto> GetChildByIdWithEvents(Guid childId)
         {
-            return await _httpClient.GetFromJsonAsync<ChildWithEventsReadDto>($"/api/child/{childId}");
+            return await _httpClient.GetFromJsonAsync<ChildWithEventsReadDto>($"/api/child/withevents/{childId}");
+        }
+
+        internal async Task<ChildReadDto> GetChildById(Guid childId)
+        {
+            Console.WriteLine("2a");
+            return await _httpClient.GetFromJsonAsync<ChildReadDto>($"/api/child/{childId}");
         }
     }
 }

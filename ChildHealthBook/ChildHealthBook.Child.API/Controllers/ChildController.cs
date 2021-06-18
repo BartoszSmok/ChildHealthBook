@@ -43,6 +43,16 @@ namespace ChildHealthBook.Child.API.Controllers
 
         //api/child/{childId} - Get child with events by query string childId / GET
         [HttpGet("{childId}")]
+        public async Task<ActionResult<ChildReadDto>> GetChildById(Guid childId)
+        {
+            Console.WriteLine("2b");
+            ChildReadDto result = await _childRepository.GetChildById(childId);
+            Console.WriteLine("2e");
+            return result == null ? NotFound() : Ok(result);
+        }
+
+        //api/child/WithEvents/{childId} - Get child with events by query string childId / GET
+        [HttpGet("WithEvents/{childId}")]
         public async Task<ActionResult<ChildWithEventsReadDto>> GetChildByIdWithEvents(Guid childId)
         {
             ChildWithEventsReadDto result = await _childRepository.GetChildByIdWithEvents(childId);

@@ -1,6 +1,7 @@
 ﻿using Azure.Storage.Queues;
 using Azure.Storage.Queues.Models;
 using ChildHealthBook.Child.API.DAL;
+using ChildHealthBook.Common.WebDtos.EventDtos;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -61,6 +62,32 @@ namespace ChildHealthBook.Child.API.Clients
                 }
 
                 await Task.Delay(new TimeSpan(0, 1, 0));
+            }
+        }
+
+        private void SendMessageToQueue(string queueName, string queueMessage)
+        {
+            try
+            {
+                _queueClient = new QueueClient(_apiSettings.StorageConnectionString, queueName);
+
+                _queueClient.CreateIfNotExists();
+
+                if (_queueClient.Exists())
+                {
+                    Console.WriteLine($"Queue created: '{_queueClient.Name}'");
+                    _queueClient.SendMessage(queueMessage);
+                }
+                else
+                {
+                    Console.WriteLine($"Make sure the Azurite storage emulator running and try again.");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}\n\n");
+                Console.WriteLine($"Make sure the Azurite storage emulator running and try again.");
             }
         }
     }

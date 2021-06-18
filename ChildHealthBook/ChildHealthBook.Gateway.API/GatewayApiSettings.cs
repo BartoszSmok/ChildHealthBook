@@ -7,6 +7,7 @@
         public string AddNewMedicalEventQueue { get; set; }
         public string AddNewPersonalEventQueue { get; set; }
         public string AddNewExaminationQueue { get; set; }
+        public string SendExaminationToNotificationQueue { get; set; }
     }
 
     public interface IGatewayApiSettings
@@ -16,5 +17,6 @@
         string AddNewMedicalEventQueue { get; set; }
         string AddNewPersonalEventQueue { get; set; }
         string AddNewExaminationQueue { get; set; }
+        string SendExaminationToNotificationQueue { get; set; }
     }
 }

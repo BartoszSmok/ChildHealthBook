@@ -6,6 +6,8 @@ namespace ChildHealthBook.Common.WebDtos.ChildDtos
     {
         public Guid Id { get; set; }
 
+        public Guid ParentId { get; set; }
+
         public DateTime DateOfBirth { get; set; }
 
         public string FullName { get; set; }

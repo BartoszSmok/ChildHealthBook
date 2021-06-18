@@ -46,7 +46,15 @@ namespace ChildHealthBook.Child.API.DAL
         public async Task<IEnumerable<ChildWithEventsReadDto>> GetAllChildrenWithEvents()
         {
             var result = await _children.Find<ChildModel>(childModel => true).ToListAsync();
-            return _mapper.Map<IEnumerable<ChildWithEventsReadDto>>(result);
+            return _mapper.Map<List<ChildWithEventsReadDto>>(result);
+        }
+
+        public async Task<ChildReadDto> GetChildById(Guid childId)
+        {
+            Console.WriteLine("2c");
+            var result = await _children.Find<ChildModel>(childmodel => childmodel.Id == childId).FirstOrDefaultAsync();
+            Console.WriteLine("2d");
+            return _mapper.Map<ChildReadDto>(result);
         }
 
         public async Task<ChildWithEventsReadDto> GetChildByIdWithEvents(Guid childId)
