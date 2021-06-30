@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: childhealthbookweb 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: childhealthbookweb
+  template:
+    metadata:
+      labels:
+        app: childhealthbookweb 
+    spec:
+      containers:
+        - name: childhealthbookweb 
+          image: childhealthbookacr2.azurecr.io/childhealthbookweb
+          ports:
+          - containerPort: 80
