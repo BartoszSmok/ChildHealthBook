@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: childhealthbookacr.azurecr.io/web:v1
+          image: childhealthbookacr2 .azurecr.io/web
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
