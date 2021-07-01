@@ -14,6 +14,5 @@ namespace ChildHealthBook.Gateway.API.Clients
         Task AddNewMedicalEvent(MedicalEventCreateDto medicalEventCreateDto);
         Task AddNewExamination(MedicalExaminationCreateDto medicalExaminationCreateDto);
         Task SendToNotificationService(ExaminationNotificationDto examinationNotificationDto);
-        Task ShareEventWithParent(ShareEventCreateDto shareEventCreateDto);
     }
 }

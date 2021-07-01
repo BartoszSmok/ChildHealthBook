@@ -60,7 +60,11 @@ namespace ChildHealthBook.Gateway.API.Controllers
             try
             {
                 string url = _identityApiBaseUrl + "/api/tokens/token";
-                return Ok(await _identityCommunicationBrige.GetTokenAsString(url, userLoginDTO));
+                string token = await _identityCommunicationBrige.GetTokenAsString(url, userLoginDTO);
+                if(token == string.Empty){
+                    return BadRequest();
+                }
+                return Ok(token);
             }
             catch (Exception e)
             {

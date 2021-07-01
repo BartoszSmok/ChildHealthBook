@@ -3,14 +3,13 @@ using ChildHealthBook.Gateway.API.Communication.Bridge;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ChildHealthBook.Gateway.API.Controllers
 {
-    [Route("/Gateway/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AnalyticsController : ControllerBase
     {
@@ -24,15 +23,14 @@ namespace ChildHealthBook.Gateway.API.Controllers
 
         private AnalyticsCommunicationBridge<ChildrenAverageCountPerParentRecord> _currChildrenAverageCountPerParent { get; set; }
         private AnalyticsCommunicationBridge<IEnumerable<ChildrenAverageCountPerParentRecord>> _childrenAverageCountPerParentHistory { get; set; }
-        private ILogger<AnalyticsController> _logger;
+
         public AnalyticsController(AnalyticsCommunicationBridge<VaccinationFactorRecord> currVaccinationFactor,
             AnalyticsCommunicationBridge<IEnumerable<VaccinationFactorRecord>> vaccinationFactorHistory,
             AnalyticsCommunicationBridge<ChildrenAverageAgeRecord> currChildrenAverageAge,
             AnalyticsCommunicationBridge<IEnumerable<ChildrenAverageAgeRecord>> childrenAverageAgeHistory,
             AnalyticsCommunicationBridge<ChildrenAverageCountPerParentRecord> currChildrenAverageCountPerParent,
             AnalyticsCommunicationBridge<IEnumerable<ChildrenAverageCountPerParentRecord>> childrenAverageCountPerParentHistory,
-            IConfiguration config,
-            ILogger<AnalyticsController> logger)
+            IConfiguration config)
         {
             _currVaccinationFactor = currVaccinationFactor;
             _vaccinationFactorHistory = vaccinationFactorHistory;
@@ -41,7 +39,6 @@ namespace ChildHealthBook.Gateway.API.Controllers
             _currChildrenAverageCountPerParent = currChildrenAverageCountPerParent;
             _childrenAverageCountPerParentHistory = childrenAverageCountPerParentHistory;
             _analyticsApiBaseUrl = config.GetSection("Gateway:AnalyticsAPI:BaseUrl").Value;
-            _logger = logger;
         }
 
         [HttpGet]
@@ -50,15 +47,12 @@ namespace ChildHealthBook.Gateway.API.Controllers
         {
             try
             {
-                _logger.LogInformation("Successfull connect");
                 return Ok(await _currVaccinationFactor.Get($"{_analyticsApiBaseUrl}/api/analytics/vaccinationFactor"));
             }
             catch (Exception e)
             {
-                _logger.LogWarning($"Exception {e}");
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
-
         }
         [HttpGet]
         [Route("childrenAverageAge")]
@@ -66,13 +60,11 @@ namespace ChildHealthBook.Gateway.API.Controllers
         {
             try
             {
-                _logger.LogInformation("Successfull connect");
                 return Ok(await _currChildrenAverageAge.Get($"{_analyticsApiBaseUrl}/api/analytics/childrenAverageAge"));
             }
             catch (Exception e)
             {
-                _logger.LogWarning($"Exception {e}");
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -82,13 +74,11 @@ namespace ChildHealthBook.Gateway.API.Controllers
         {
             try
             {
-                _logger.LogInformation("Successfull connect");
                 return Ok(await _currChildrenAverageCountPerParent.Get($"{_analyticsApiBaseUrl}/api/analytics/childrenAverageCountPerParent"));
             }
             catch (Exception e)
             {
-                _logger.LogWarning($"Exception {e}");
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -98,13 +88,11 @@ namespace ChildHealthBook.Gateway.API.Controllers
         {
             try
             {
-                _logger.LogInformation("Successfull connect");
                 return Ok(await _vaccinationFactorHistory.Get($"{_analyticsApiBaseUrl}/api/history/vaccinationFactor"));
             }
             catch (Exception e)
             {
-                _logger.LogWarning($"Exception {e}");
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
         [HttpGet]
@@ -113,13 +101,11 @@ namespace ChildHealthBook.Gateway.API.Controllers
         {
             try
             {
-                _logger.LogInformation("Successfull connect");
                 return Ok(await _childrenAverageAgeHistory.Get($"{_analyticsApiBaseUrl}/api/history/childrenAverageAge"));
             }
             catch (Exception e)
             {
-                _logger.LogWarning($"Exception {e}");
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -129,13 +115,11 @@ namespace ChildHealthBook.Gateway.API.Controllers
         {
             try
             {
-                _logger.LogInformation("Successfull connect");
                 return Ok(await _childrenAverageCountPerParentHistory.Get($"{_analyticsApiBaseUrl}/api/history/childrenAverageCountPerParent"));
             }
             catch (Exception e)
             {
-                _logger.LogWarning($"Exception {e}");
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
     }

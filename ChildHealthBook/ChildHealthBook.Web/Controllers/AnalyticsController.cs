@@ -1,16 +1,20 @@
 ﻿using ChildHealthBook.Web.CookieServices.Validator;
 using ChildHealthBook.Web.Models.AnalyticsDtos;
+using ChildHealthBook.Web.Models.Session;
 using ChildHealthBook.Web.Services;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ChildHealthBook.Web.Controllers
 {
     public class AnalyticsController : Controller
     {
-        private AnalyticsService _analyticsService;
         private UserSessionCookieValidator _cookieValidator;
 
+        AnalyticsService _analyticsService;
         public AnalyticsController(AnalyticsService analyticsService, UserSessionCookieValidator cookieValidator)
         {
             _analyticsService = analyticsService;
@@ -22,7 +26,18 @@ namespace ChildHealthBook.Web.Controllers
             {
                 if (_cookieValidator.IsRoleValid(Request, "Scientist"))
                 {
-                    WebSharedStats sharedStats = await _analyticsService.GetAnalysis();
+                    var vaccinationFactor = await _analyticsService.GetVaccinationFactor();
+                    var childrenAverageAge = await _analyticsService.GetChildrenAverageAge();
+                    var childrenAverageAgePerParent = await _analyticsService.GetChildrenAverageCountPerParent();
+                    WebSharedStats sharedStats = new WebSharedStats
+                    {
+                        VaccinationFactor = vaccinationFactor.Factor,
+                        DateOfRecordCreationVaccinationFactor = vaccinationFactor.DateOfRecordCreation,
+                        ChildrenAverageAge = childrenAverageAge.Average,
+                        DateOfRecordCreationChildrenAverageAge = childrenAverageAge.DateOfRecordCreation,
+                        AverageChildrenCountPerParent = childrenAverageAgePerParent.Average,
+                        DateOfRecordCreationAverageChildrenCountPerParent = childrenAverageAgePerParent.DateOfRecordCreation
+                    };
 
                     if (sharedStats != null)
                     {
@@ -83,6 +98,5 @@ namespace ChildHealthBook.Web.Controllers
             }
             return RedirectToAction("AnalysisIndex", "Analytics");
         } 
-
     }
 }

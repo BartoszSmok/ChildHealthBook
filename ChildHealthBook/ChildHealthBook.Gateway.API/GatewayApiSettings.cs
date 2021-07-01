@@ -8,7 +8,6 @@
         public string AddNewChildPersonalEventQueue { get; set; }
         public string AddNewExaminationQueue { get; set; }
         public string SendExaminationToNotificationQueue { get; set; }
-        public string ShareEventQueue { get; set; }
     }
 
     public interface IGatewayApiSettings
@@ -19,6 +18,5 @@
         string AddNewChildPersonalEventQueue { get; set; }
         string AddNewExaminationQueue { get; set; }
         string SendExaminationToNotificationQueue { get; set; }
-        string ShareEventQueue { get; set; }
     }
 }

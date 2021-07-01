@@ -7,7 +7,6 @@ using ChildHealthBook.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ChildHealthBook.Web.Controllers
@@ -215,13 +214,14 @@ namespace ChildHealthBook.Web.Controllers
 
         public async Task<IActionResult> SharedEvent()
         {
-            IEnumerable<WebSharedEventReadDto> vaccinationFactorHistory = new List<WebSharedEventReadDto>
+            if (_cookieValidator.IsCookiePresent(Request))
             {
-                new WebSharedEventReadDto{ChildFullName = "Adas", EventType="medical", Comment="succes", DateOfEvent=DateTime.Now, EventTitle="title"},
-                new WebSharedEventReadDto{ChildFullName = "Ewa", EventType="inny", Comment="succes2", DateOfEvent=DateTime.Now, EventTitle="title2"},
-                new WebSharedEventReadDto{ChildFullName = "marek", EventType="medical3", Comment="succes", DateOfEvent=DateTime.Now, EventTitle="3title"}
-            };
-                return View(vaccinationFactorHistory);
+                if (_cookieValidator.IsRoleValid(Request, "Parent"))
+                {
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

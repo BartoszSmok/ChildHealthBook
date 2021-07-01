@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -20,7 +21,18 @@ namespace ChildHealthBook.Web.Communication
             var json = JsonConvert.SerializeObject(accountData);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _http.PostAsync(url, data);
-            return response.IsSuccessStatusCode;
+            if (response.IsSuccessStatusCode)
+            {
+                return response.IsSuccessStatusCode;
+            }
+
+            if((int)response.StatusCode == StatusCodes.Status500InternalServerError)
+            {
+                throw new SystemException($"Internal server error, response details : {response.Content}");
+            }
+
+            throw new ArgumentException($"Argument exception, server returned status code that is different from 500 and 200, response details:" +
+                $"{response.Content}");
         }
     }
 }

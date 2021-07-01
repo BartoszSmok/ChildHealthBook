@@ -24,6 +24,7 @@
                 <th>
                     Comment
                 </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -33,23 +34,21 @@
                 {
                     @foreach (var item in Model)
                     {
-            <tr>
-                <td>
-                    @item.ChildFullName
-                </td>
-                <td>
-                    @item.DateOfEvent.ToString()
-                </td>
-                <td>
-                    @item.EventTitle
-                </td>
-                <td>
-                    @item.EventType
-                </td>
-                <td>
-                    @item.Comment
-                </td>
-            </tr>
+                        <tr>
+                            <td>
+                                @item.ChildFullName
+                            </td>
+                            <td>
+                                @item.DateOfEvent.ToString()
+                            </td>
+                            <td>
+                                @item.EventTitle
+                            </td>
+                                @item.EventType
+                            <td>
+                                @item.Comment
+                            </td>
+                        </tr>
                     }
                 }
             }

@@ -1,5 +1,6 @@
 ﻿using ChildHealthBook.Common.Identity.DTOs;
 using ChildHealthBook.Gateway.API.Communication.Strategy.Identity;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,10 @@ namespace ChildHealthBook.Gateway.API.Communication.Strategy
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadAsStringAsync();
+            }
+            if((int)response.StatusCode == StatusCodes.Status400BadRequest)
+            {
+                return string.Empty;
             }
             else
             {
