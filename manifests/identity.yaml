@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identityapi-deployment
+  labels:
+    app: identityapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: identityapi
+  template:
+    metadata:
+      labels:
+        app: identityapi
+    spec:
+      containers:
+        - name: identity
+          image: childhealthbookacr2.azurecr.io/identity
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "100m"
+            limits:
+              memory: "64Mi"
+              cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: identityapi-service
+spec:
+  selector:
+    app: identityapi
+  ports:
+    - protocol: TCP
+      port: 80
