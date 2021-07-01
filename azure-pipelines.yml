@@ -9,7 +9,7 @@ trigger:
     paths:
       include:
       - ChildHealthBook/ChildHealthBook.WEB/*
-      - manifests/web.yaml
+      - aks/web.yaml
 
 resources:
 - repo: self
