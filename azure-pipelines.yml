@@ -14,7 +14,7 @@ variables:
   dockerRegistryServiceConnection: '4faace93-2dee-4851-a2e7-16ded1733e98'
   imageRepository: 'web'
   containerRegistry: 'childhealthbookacr2.azurecr.io'
-  dockerfilePath: 'ChildHealthBook/ChildHealthBook.WEB/Dockerfile'
+  dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'childhealthbookacr269dc-auth'
 
