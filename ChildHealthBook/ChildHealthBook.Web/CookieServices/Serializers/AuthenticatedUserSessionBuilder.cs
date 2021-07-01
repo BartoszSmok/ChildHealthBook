@@ -26,7 +26,7 @@ namespace ChildHealthBook.Web.CookieServices.Serializers
                 AccountType = claims.Where(claim => claim.Type == ClaimTypes.Role).FirstOrDefault().Value,
                 Name = claims.Where(claim => claim.Type == CustomClaimTypes.CustomName).FirstOrDefault().Value,
                 Surname = claims.Where(claim => claim.Type == CustomClaimTypes.CustomSurname).FirstOrDefault().Value,
-                Age = int.Parse(claims.Where(claim => claim.Type == CustomClaimTypes.CustomAge).FirstOrDefault().Value),
+                DateOfBirth = DateTime.Parse(claims.Where(claim => claim.Type == CustomClaimTypes.CustomAge).FirstOrDefault().Value),
                 Phone = claims.Where(claim => claim.Type == CustomClaimTypes.CustomPhone).FirstOrDefault().Value,
                 Email = claims.Where(claim => claim.Type == ClaimTypes.Email).FirstOrDefault().Value
             };

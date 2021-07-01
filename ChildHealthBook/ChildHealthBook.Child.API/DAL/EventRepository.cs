@@ -15,6 +15,7 @@ namespace ChildHealthBook.Child.API.DAL
         private readonly IMongoCollection<ExaminationModel> _examinations;
         private readonly IMongoCollection<PersonalEventModel> _personalEvents;
         private readonly IMongoCollection<MedicalEventModel> _medicalEvents;
+        private readonly IMongoCollection<ShareEventModel> _sharedEvents;
         private readonly IMapper _mapper;
 
         public EventRepository(IChildApiSettings apiSettings, IMapper mapper)
@@ -24,6 +25,7 @@ namespace ChildHealthBook.Child.API.DAL
             _examinations = database.GetCollection<ExaminationModel>(apiSettings.ExaminationCollectionName);
             _personalEvents = database.GetCollection<PersonalEventModel>(apiSettings.PersonalEventCollectionName);
             _medicalEvents = database.GetCollection<MedicalEventModel>(apiSettings.MedicalEventCollectionName);
+            _sharedEvents = database.GetCollection<ShareEventModel>(apiSettings.SharedEventCollectionName);
 
             _mapper = mapper;
         }
@@ -58,10 +60,26 @@ namespace ChildHealthBook.Child.API.DAL
             return _mapper.Map<IEnumerable<MedicalEventReadDto>>(result);
         }
 
+        public async Task<PersonalEventModel> GetChildPersonalEventById(Guid eventId)
+        {
+            return await _personalEvents.Find<PersonalEventModel>(personalevent => personalevent.Id == eventId).FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<PersonalEventReadDto>> GetChildPersonalEvents(Guid childId)
         {
             IEnumerable<PersonalEventModel> result = await _personalEvents.Find<PersonalEventModel>(personalevent => personalevent.ChildId == childId).ToListAsync();
             return _mapper.Map<IEnumerable<PersonalEventReadDto>>(result);
+        }
+
+        public async Task<IEnumerable<ShareEventModel>> GetSharedEventByParentId(Guid parentId)
+        {
+            return await _sharedEvents.Find<ShareEventModel>(sharedevent => sharedevent.ParentId == parentId).ToListAsync();
+        }
+
+        public async Task ShareEvent(string messageText)
+        {
+            ShareEventModel shareEventModel = JsonSerializer.Deserialize<ShareEventModel>(messageText);
+            await _sharedEvents.InsertOneAsync(shareEventModel);
         }
     }
 }

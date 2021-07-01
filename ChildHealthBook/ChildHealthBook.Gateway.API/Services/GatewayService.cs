@@ -74,6 +74,15 @@ namespace ChildHealthBook.Gateway.API.Services
             return result;
         }
 
+        public async Task<IEnumerable<SharedEventReadDto>> GetSharedEventByParentId(Guid parentId)
+        {
+            IEnumerable<SharedEventReadDto> result = await _childClient.GetSharedEventByParentId(parentId);
+            return result;
+        }
 
+        public async Task ShareEventWithParent(ShareEventCreateDto shareEventCreateDto)
+        {
+            await _azureQueueClient.ShareEventWithParent(shareEventCreateDto);
+        }
     }
 }

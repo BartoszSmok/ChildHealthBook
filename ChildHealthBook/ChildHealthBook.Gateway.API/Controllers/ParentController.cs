@@ -79,12 +79,27 @@ namespace ChildHealthBook.Gateway.API.Controllers
             return Ok();
         }
 
-        /*
-            GetAllEvents - Get all child events / GET
-            GetAllExaminations - Get all child examinations / GET
-            GetAllSharedEvents - Get all events shared for this parent by other parent / GET
-            ShareEventWithParent - Share selected event with another parent / PUT
-         */
+        //ShareEventWithParent - Share selected event with another parent
+        [HttpPost("Child/ShareEvent")]
+        public async Task<ActionResult> ShareEventWithParent(ShareEventCreateDto shareEventCreateDto)
+        {
+            await _gatewayService.ShareEventWithParent(shareEventCreateDto);
+            return NoContent();
+        }
 
+        //public class SharedEventReadDto
+        //    public string ChildFullName { get; set; }
+        //    public DateTime DateOfEvent { get; set; }
+        //    public string EventType { get; set; }
+        //    public string EventTitle { get; set; }
+        //    public string Comment { get; set; }
+
+        //GetSharedEventByParentId
+        [HttpGet("Child/ShareEvent/{parentId}")]
+        public async Task<ActionResult<IEnumerable<SharedEventReadDto>>> GetSharedEventByParentId(Guid parentId)
+        {
+            IEnumerable<SharedEventReadDto> result = await _gatewayService.GetSharedEventByParentId(parentId);
+            return result == null ? NotFound() : Ok(result);
+        }
     }
 }

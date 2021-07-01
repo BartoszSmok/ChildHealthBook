@@ -29,10 +29,10 @@ namespace ChildHealthBook.Controllers
 
         [HttpGet]
         [Route("user/getUsers")]
-        public ActionResult<IEnumerable<User>> GetUsers()
+        public ActionResult<IEnumerable<UserData>> GetUsersCount()
         {
             _logger.LogInformation("Fetching all users from identity in AccountsController...");
-            return Ok(_userManager.Users.Where(u => u.AccountType == "Parent"));
+            return Ok(_mapper.Map<IEnumerable<UserData>>(_userManager.Users.Where(u => u.AccountType == "Parent").ToList()));
         }
         /// <summary>
         /// This POST method registers API user

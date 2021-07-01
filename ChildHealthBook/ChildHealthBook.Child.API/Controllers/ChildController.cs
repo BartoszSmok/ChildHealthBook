@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using ChildHealthBook.Common.WebDtos.ChildDtos;
 using ChildHealthBook.Child.API.DAL;
 using ChildHealthBook.Child.API.Clients;
+using ChildHealthBook.Common.WebDtos.EventDtos;
+using ChildHealthBook.Child.API.Models;
 
 namespace ChildHealthBook.Child.API.Controllers
 {
@@ -78,15 +80,33 @@ namespace ChildHealthBook.Child.API.Controllers
             return result == null ? NotFound() : Ok(result);
         }
 
+        //GetSharedEventByParentId
+        [HttpGet("ShareEvent/{parentId}")]
+        public async Task<ActionResult<IEnumerable<SharedEventReadDto>>> GetSharedEventByParentId(Guid parentId)
+        {
+            IEnumerable<ShareEventModel> shareEventModels = await _eventRepository.GetSharedEventByParentId(parentId);
 
-        /*
-            -----------------------------------------
-            
-            -----------------------------------------
-            api/event/shared/{parentId} - Get all shared events by query string parentId / GET
-            api/event/examination/child/{childId} - Get all child examination by query string childId / GET 
-            api/event/examination/{examinationId} - Get examination by Id / GET
-            api/event/{eventId} - Update event with Id / PUT
-        */
+            List <SharedEventReadDto> result = new List<SharedEventReadDto>();
+
+            //if (shareEventModels != null)
+            //{
+                foreach (var item in shareEventModels)
+                {
+                    PersonalEventModel personalEventModel = await _eventRepository.GetChildPersonalEventById(item.EventId);
+
+                    SharedEventReadDto sharedEventReadDto = new SharedEventReadDto { 
+                    ChildFullName = await _childRepository.GetChildFullNameById(personalEventModel.ChildId),
+                    DateOfEvent = personalEventModel.DateOfEvent,
+                    EventType = personalEventModel.EventType,
+                    EventTitle = personalEventModel.EventTitle,
+                    Comment = personalEventModel.Comment
+                    };
+
+                    result.Add(sharedEventReadDto);
+                }
+            //}
+
+            return result == null ? NotFound() : Ok(result);
+        }
     }
 }

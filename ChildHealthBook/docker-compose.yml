@@ -14,6 +14,11 @@ services:
       context: .
       dockerfile: ChildHealthBook.Web/Dockerfile
 
+  childhealthbook.identity.api:
+    image: ${DOCKER_REGISTRY-}childhealthbookidentityapi
+    build:
+      context: .
+      dockerfile: ChildHealthBook.Identity.API/Dockerfile
 
 
   childhealthbook.gateway.api:
@@ -42,11 +47,3 @@ services:
     build:
       context: .
       dockerfile: ChildHealthBook.Notification.Service/Dockerfile
-
-
-  childhealthbook.identity.api:
-    image: ${DOCKER_REGISTRY-}childhealthbookidentityapi
-    build:
-      context: .
-      dockerfile: ChildHealthBook.Identity.API/Dockerfile
-

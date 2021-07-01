@@ -11,52 +11,57 @@
 
 @if (userData.AccountType == "Parent")
 {
-    @*<a class="navbar-brand" asp-area="" asp-page="ChildrenIndex"><img width="35px" src="/img/baby-icon-32 (1).png" /> Child Health Book</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>*@
+<div class="d-flex align-items-center">
+    <li class="nav-item pt-leg-1">
+        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
     <li class="nav-item pt-leg-1">
         <a class="nav-link" asp-area="" asp-controller="Parent" asp-action="ChildrenIndex">My Children</a>
     </li>
-    <li class="nav-item pt-leg-1">
+    <li class="nav-item pt-leg1">
         <a class="nav-link" asp-area="" asp-controller="Parent" asp-action="SharedEvent">Shared events</a>
     </li>
+</div>
 }
 else if (userData.AccountType == "Scientist")
 {
-    @*<a class="navbar-brand" asp-area="" asp-page="/AnalysisIndex"><img width="35px" src="/img/baby-icon-32 (1).png" /> Child Health Book</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>*@
+<div class="d-flex align-items-center">
+    <li class="nav-item pt-leg-1">
+        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
     <li class="nav-item pt-leg-1">
         <a class="nav-link" asp-area="" asp-controller="Analytics" asp-action="AnalysisIndex">Analysis</a>
     </li>
     <li class="nav-item pt-leg-1">
         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="RegisterScientist">Register new scientist</a>
     </li>
-}
-else
-{
-    @*<a class="navbar-brand" asp-area="" asp-page="/Index"><img width="35px" src="/img/baby-icon-32 (1).png" /> Child Health Book</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>*@
+</div>
+
+    }
+    else
+    {
+
+<div class="d-flex align-items-center">
     <li class="nav-item pt-leg-1">
         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
     </li>
-    <li class="nav-item pt-leg-1">
+    <li class="nav-item">
         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
     </li>
-    <li class="nav-item pt-leg-1">
+    <li class="nav-item">
         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="RegisterParent">Register as parent</a>
     </li>
-}
-@if (userData.AccountType != null)
-{
+</div>
+    }
+    @if (userData.AccountType != null)
+    {
+<div class="d-flex align-items-center">
+    <li class="nav-item">
+        <p class="nav-link m-0" style="cursor: pointer">@(userData.AccountType == "Scientist" ? $"{userData.Name} {@userData.Surname}" : $"{userData.Email}")</p>
+    </li>
+
     <li class="nav-item">
         <a class="nav-link" asp-controller="Accounts" asp-action="Logout">Logout</a>
     </li>
+</div>
 }

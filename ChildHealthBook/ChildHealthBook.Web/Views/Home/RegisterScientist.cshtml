@@ -4,12 +4,11 @@
 <form method="post" asp-antiforgery="false" asp-action="RegisterScientist" asp-controller="Accounts">
     <h4 class="text-primary">Create a new Scientist Account</h4>
     <hr />
-    <div class="text-danger" asp-validation-summary="All"></div>
-
     <div class="form-group row">
         <label asp-for="UserName" class="col-md-2">Login</label>
         <div class="col-md-10">
             <input asp-for="UserName" class="form-control">
+            <span asp-validation-for="UserName" class="text-danger"></span>
         </div>
     </div>
 
@@ -17,6 +16,7 @@
         <label asp-for="Email" class="col-md-2">Email</label>
         <div class="col-md-10">
             <input asp-for="Email" class="form-control">
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
     </div>
 
@@ -24,6 +24,7 @@
         <label asp-for="Password" class="col-md-2">Password</label>
         <div class="col-md-10">
             <input type="password" asp-for="Password" class="form-control">
+            <span asp-validation-for="Password" class="text-danger"></span>
         </div>
     </div>
 
@@ -31,6 +32,7 @@
         <label asp-for="ConfirmPassword" class="col-md-2">Confirm Password</label>
         <div class="col-md-10">
             <input type="password" asp-for="ConfirmPassword" class="form-control">
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
     </div>
 

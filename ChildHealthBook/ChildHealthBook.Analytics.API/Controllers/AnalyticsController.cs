@@ -1,6 +1,7 @@
 ﻿using ChildHealthBook.Analytics.API.Analytics;
 using ChildHealthBook.Analytics.API.Communication.Bridge;
 using ChildHealthBook.Common.AnalyticsDtos;
+using ChildHealthBook.Common.Identity.DTOs;
 using ChildHealthBook.Common.WebDtos.ChildDtos;
 using Common.Identity.Setup;
 using Microsoft.AspNetCore.Http;
@@ -22,7 +23,7 @@ namespace ChildHealthBook.Analytics.API.Controllers
         private AverageCounter _averageCounter { get; set; }
 
         private IAnalyticsCounter _factorCounter { get; set; }
-        private ICommunicationBridge<User> _identityApiCommunication { get; set; }
+        private ICommunicationBridge<UserData> _identityApiCommunication { get; set; }
         private string ChildApiUrl { get; set; }
         private string IdentityApiUrl { get; set; }
 
@@ -34,7 +35,7 @@ namespace ChildHealthBook.Analytics.API.Controllers
             AverageCounter averageCounter, 
             FactorCounter factorCounter,
             ICommunicationBridge<ChildWithEventsReadDto> childCommunication,
-            ICommunicationBridge<User> identityCommunication, IConfiguration config, ILogger<AnalyticsController> logger)
+            ICommunicationBridge<UserData> identityCommunication, IConfiguration config, ILogger<AnalyticsController> logger)
         {
             _historyController = historyController;
             _averageCounter = averageCounter;
@@ -110,7 +111,6 @@ namespace ChildHealthBook.Analytics.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
-
         private void LogError(string location, string message)
         {
             _logger.LogError($"Exception thrown at {location} in AnalyticsController, exception message: {message}");

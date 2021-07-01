@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Collections.Generic;
 
 namespace ChildHealthBook.Child.API.Models
 {
@@ -17,5 +18,7 @@ namespace ChildHealthBook.Child.API.Models
         public string EventTitle { get; set; }
 
         public string Comment { get; set; }
+
+        List<Guid> SharedParentId { get; set; }
     }
 }

@@ -20,46 +20,30 @@ namespace ChildHealthBook.Web.Services
             _webSettings = webSettings;
         }
 
-        public async Task<WebVaccinationFactorRecord> GetVaccinationFactor()
+        internal async Task<WebSharedStats> GetAnalysis()
         {
             _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
-            string url = $"Analytics/vaccinationFactor";
-            var response = await _httpClient.GetFromJsonAsync<WebVaccinationFactorRecord>(url);
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var vaccinationFactor = await response.Content.ReadAsStringAsync();
-            //    var vaccinationFactorConverted = JsonConvert.DeserializeObject<WebVaccinationFactorRecord>(vaccinationFactor);
-            //    return vaccinationFactorConverted;
-            //}
-            return response;
-        }
+            WebVaccinationFactorRecord webVaccinationFactorRecord = await _httpClient.GetFromJsonAsync<WebVaccinationFactorRecord>($"/Gateway/Analytics/vaccinationFactor");
+            WebChildrenAverageAgeRecord webChildrenAverageAgeRecord = await _httpClient.GetFromJsonAsync<WebChildrenAverageAgeRecord>($"/Gateway/Analytics/childrenAverageCountPerParent");
+            WebChildrenAverageCountPerParentRecord webChildrenAverageCountPerParentRecord = await _httpClient.GetFromJsonAsync<WebChildrenAverageCountPerParentRecord>($"/Gateway/Analytics/childrenAverageCountPerParent");
 
-        public async Task<WebChildrenAverageAgeRecord> GetChildrenAverageAge()
-        {
-            _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
-            string url = $"Analytics/childrenAverageAge";
-            var response = await _httpClient.GetFromJsonAsync<WebChildrenAverageAgeRecord>(url);
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var childrenAverageAge = await response.Content.ReadAsStringAsync();
-            //    var childrenAverageAgeConverted = JsonConvert.DeserializeObject<WebChildrenAverageAgeRecord>(childrenAverageAge);
-            //    return childrenAverageAgeConverted;
-            //}
-            return response;
-        }
+            WebSharedStats result = new WebSharedStats
+            {
+                VaccinationFactor = webVaccinationFactorRecord.Factor,
+                DateOfRecordCreationVaccinationFactor = webVaccinationFactorRecord.DateOfRecordCreation,
+                ChildrenAverageAge = webChildrenAverageAgeRecord.Average,
+                DateOfRecordCreationChildrenAverageAge = webChildrenAverageAgeRecord.DateOfRecordCreation,
+                AverageChildrenCountPerParent = webChildrenAverageCountPerParentRecord.Average,
+                DateOfRecordCreationAverageChildrenCountPerParent = webChildrenAverageCountPerParentRecord.DateOfRecordCreation
+            };
 
-        public async Task<WebChildrenAverageAgeRecord> GetChildrenAverageCountPerParent()
-        {
-            _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
-            string url = $"childrenAverageCountPerParent";
-            var response = await _httpClient.GetFromJsonAsync<WebChildrenAverageAgeRecord>(url);
-            return response;
+            return result;
         }
 
         public async Task<IEnumerable<WebVaccinationFactorRecord>> GetVaccinationFactorHistory()
         {
             _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
-            string url = $"Analytics/vaccinationFactorHistory";
+            string url = $"/Gateway/Analytics/vaccinationFactorHistory";
             var response = await _httpClient.GetFromJsonAsync<IEnumerable<WebVaccinationFactorRecord>>(url);
             return response;
         }
@@ -67,7 +51,7 @@ namespace ChildHealthBook.Web.Services
         public async Task<IEnumerable<WebChildrenAverageAgeRecord>> GetChildrenAverageAgeHistory()
         {
             _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
-            string url = $"Analytics/childrenAverageAgeHistory";
+            string url = $"/Gateway/Analytics/childrenAverageAgeHistory";
             var response = await _httpClient.GetFromJsonAsync<IEnumerable<WebChildrenAverageAgeRecord>>(url);
 
             //var response = await _httpClient.GetAsync(url);
@@ -83,7 +67,7 @@ namespace ChildHealthBook.Web.Services
         public async Task<IEnumerable<WebChildrenAverageCountPerParentRecord>> GetChildrenAverageCountPerParentHistory()
         {
             _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
-            string url = $"Analytics/childrenAverageCountPerParentHistory";
+            string url = $"/Gateway/Analytics/childrenAverageCountPerParentHistory";
             var response = await _httpClient.GetFromJsonAsync<IEnumerable<WebChildrenAverageCountPerParentRecord>>(url);
 
 

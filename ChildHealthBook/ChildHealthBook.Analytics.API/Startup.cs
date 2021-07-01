@@ -5,15 +5,14 @@ using ChildHealthBook.Analytics.API.Controllers;
 using ChildHealthBook.Analytics.API.Repository;
 using ChildHealthBook.Analytics.API.Repository.Setup;
 using ChildHealthBook.Common.AnalyticsDtos;
+using ChildHealthBook.Common.Identity.DTOs;
 using ChildHealthBook.Common.WebDtos.ChildDtos;
-using Common.Identity.Setup;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using System;
 
 namespace ChildHealthBook.Analytics.API
 {
@@ -48,10 +47,10 @@ namespace ChildHealthBook.Analytics.API
         private void AddBridgesSetupToDI(IServiceCollection services)
         {
             services.AddScoped<ICommunicationBridge<ChildWithEventsReadDto>, CommunicationBridge<ChildWithEventsReadDto>>();
-            services.AddScoped<ICommunicationBridge<User>, CommunicationBridge<User>>();
+            services.AddScoped<ICommunicationBridge<UserData>, CommunicationBridge<UserData>>();
 
             services.AddScoped<ICommunicationStrategy<ChildWithEventsReadDto>, HttpClientCommunicationStrategy<ChildWithEventsReadDto>>();
-            services.AddScoped<ICommunicationStrategy<User>, HttpClientCommunicationStrategy<User>>();
+            services.AddScoped<ICommunicationStrategy<UserData>, HttpClientCommunicationStrategy<UserData>>();
         }
 
         private void AddRepositoriesToDI(IServiceCollection services)

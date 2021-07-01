@@ -16,5 +16,7 @@ namespace ChildHealthBook.Gateway.API.Services
         Task AddNewPersonalEvent(PersonalEventCreateDto personalEventCreateDto);
         Task AddNewMedicalEvent(MedicalEventCreateDto medicalEventCreateDto);
         Task AddNewExamination(MedicalExaminationCreateDto medicalExaminationCreateDto);
+        Task ShareEventWithParent(ShareEventCreateDto shareEventCreateDto);
+        Task<IEnumerable<SharedEventReadDto>> GetSharedEventByParentId(Guid parentId);
     }
 }

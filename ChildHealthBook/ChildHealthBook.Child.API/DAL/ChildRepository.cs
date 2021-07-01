@@ -51,9 +51,7 @@ namespace ChildHealthBook.Child.API.DAL
 
         public async Task<ChildReadDto> GetChildById(Guid childId)
         {
-            Console.WriteLine("2c");
             var result = await _children.Find<ChildModel>(childmodel => childmodel.Id == childId).FirstOrDefaultAsync();
-            Console.WriteLine("2d");
             return _mapper.Map<ChildReadDto>(result);
         }
 
@@ -61,6 +59,12 @@ namespace ChildHealthBook.Child.API.DAL
         {
             var result = await _children.Find<ChildModel>(childmodel => childmodel.Id == childId).FirstOrDefaultAsync();
             return _mapper.Map<ChildWithEventsReadDto>(result);
+        }
+
+        public async Task<string> GetChildFullNameById(Guid childId)
+        {
+            var result = await _children.Find<ChildModel>(childmodel => childmodel.Id == childId).FirstOrDefaultAsync();
+            return result.FullName;
         }
 
         //public List<Material> GetAll() => _materials.Find(material => true).ToList();

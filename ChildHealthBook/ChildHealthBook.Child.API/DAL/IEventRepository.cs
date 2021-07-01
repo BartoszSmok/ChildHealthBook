@@ -1,4 +1,5 @@
-﻿using ChildHealthBook.Common.WebDtos.EventDtos;
+﻿using ChildHealthBook.Child.API.Models;
+using ChildHealthBook.Common.WebDtos.EventDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,8 @@ namespace ChildHealthBook.Child.API.DAL
         Task AddNewPersonalEvent(string messageText);
         Task AddNewMedicalEvent(string messageText);
         Task AddNewExamination(string messageText);
+        Task ShareEvent(string messageText);
+        Task<IEnumerable<ShareEventModel>> GetSharedEventByParentId(Guid parentId);
+        Task<PersonalEventModel> GetChildPersonalEventById(Guid eventId);
     }
 }

@@ -39,6 +39,7 @@ namespace ChildHealthBook.Child.API
             services.AddHostedService<AddMedicalEventQueueClient>();
             services.AddHostedService<AddPersonalEventQueueClient>();
             services.AddHostedService<AddExaminationQueueClient>();
+            services.AddHostedService<ShareEventQueueClient>();
 
             services.AddControllers();
 
