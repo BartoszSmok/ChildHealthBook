@@ -15,8 +15,8 @@ spec:
         app: web
     spec:
       containers:
-        - name: learningdiaryweb
-          image: learningdiaryacr.azurecr.io/learningdiaryweb:v1
+        - name: web
+          image: childhealthbookacr.azurecr.io/web:v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
