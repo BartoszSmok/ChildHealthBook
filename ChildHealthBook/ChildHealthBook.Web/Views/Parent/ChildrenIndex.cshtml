@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ChildHealthBook.Web.Models.ChildDtos.WebChildReadDto>
+
+<br />
+<br />
+<div class="container p-4 border">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primary">My Childern</h1>
+        </div>
+        <div class="col text-end pt-1">
+            <a asp-action="ChildCreate" class="btn btn-outline-primary">Add new child</a>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    FullName
+                </th>
+                <th>
+                    Date of Birth
+                </th>
+                <th>
+                    Weight
+                </th>
+                <th>
+                    Height
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                if (Model.Count() > 0)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.FullName
+                            </td>
+                            <td>
+                                @item.DateOfBirth.ToString()
+                            </td>
+                            <td>
+                                @item.CurrentWeight
+                            </td>
+                            <td>
+                                @item.CurrentHeight
+                            </td>
+                            <td>
+                                <a asp-action="ChildDetails" class="btn btn-info" asp-route-id="@item.Id">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+                </tbody>
+    </table>
+</div>

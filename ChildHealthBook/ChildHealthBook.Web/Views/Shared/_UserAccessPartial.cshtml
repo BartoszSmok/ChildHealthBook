@@ -1,0 +1,62 @@
+﻿@using ChildHealthBook.Web.Models.Session;
+@using Newtonsoft.Json;
+@{
+    var userData = new AuthUserSession();
+    if (Context.Request.Cookies["UserData"] != null)
+    {
+        userData = JsonConvert.DeserializeObject<AuthUserSession>(Context.Request.Cookies["UserData"]);
+    }
+}
+
+
+@if (userData.AccountType == "Parent")
+{
+    @*<a class="navbar-brand" asp-area="" asp-page="ChildrenIndex"><img width="35px" src="/img/baby-icon-32 (1).png" /> Child Health Book</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>*@
+    <li class="nav-item pt-leg-1">
+        <a class="nav-link" asp-area="" asp-controller="Parent" asp-action="ChildrenIndex">My Children</a>
+    </li>
+    <li class="nav-item pt-leg-1">
+        <a class="nav-link" asp-area="" asp-controller="Parent" asp-action="SharedEvent">Shared events</a>
+    </li>
+}
+else if (userData.AccountType == "Scientist")
+{
+    @*<a class="navbar-brand" asp-area="" asp-page="/AnalysisIndex"><img width="35px" src="/img/baby-icon-32 (1).png" /> Child Health Book</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>*@
+    <li class="nav-item pt-leg-1">
+        <a class="nav-link" asp-area="" asp-controller="Analytics" asp-action="AnalysisIndex">Analysis</a>
+    </li>
+    <li class="nav-item pt-leg-1">
+        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="RegisterScientist">Register new scientist</a>
+    </li>
+}
+else
+{
+    @*<a class="navbar-brand" asp-area="" asp-page="/Index"><img width="35px" src="/img/baby-icon-32 (1).png" /> Child Health Book</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>*@
+    <li class="nav-item pt-leg-1">
+        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
+    <li class="nav-item pt-leg-1">
+        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+    </li>
+    <li class="nav-item pt-leg-1">
+        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="RegisterParent">Register as parent</a>
+    </li>
+}
+@if (userData.AccountType != null)
+{
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Accounts" asp-action="Logout">Logout</a>
+    </li>
+}

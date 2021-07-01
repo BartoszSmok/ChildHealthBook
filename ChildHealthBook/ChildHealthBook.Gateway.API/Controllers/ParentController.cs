@@ -59,7 +59,7 @@ namespace ChildHealthBook.Gateway.API.Controllers
         public async Task<ActionResult> AddNewPersonalEvent(PersonalEventCreateDto personalEventCreateDto)
         {
             await _gatewayService.AddNewPersonalEvent(personalEventCreateDto);
-            return NoContent();
+            return Ok();
         }
 
         //AddNewMedicalEvent - Add new event to a child / POST
@@ -67,7 +67,7 @@ namespace ChildHealthBook.Gateway.API.Controllers
         public async Task<ActionResult> AddNewMedicalEvent(MedicalEventCreateDto medicalEventCreateDto)
         {
             await _gatewayService.AddNewMedicalEvent(medicalEventCreateDto);
-            return NoContent();
+            return Ok();
         }
 
         //api/event/child/examination/{childId} - Add new examination to child with Id / POST
@@ -76,7 +76,7 @@ namespace ChildHealthBook.Gateway.API.Controllers
         public async Task<ActionResult> AddNewExamination(MedicalExaminationCreateDto medicalExaminationCreateDto)
         {
             await _gatewayService.AddNewExamination(medicalExaminationCreateDto);
-            return NoContent();
+            return Ok();
         }
 
         /*

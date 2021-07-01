@@ -32,7 +32,7 @@ namespace ChildHealthBook.Child.API.Clients
             {
                 try
                 {
-                    _queueClient = new QueueClient(_apiSettings.StorageConnectionString, _apiSettings.AddNewPersonalEventQueue);
+                    _queueClient = new QueueClient(_apiSettings.StorageConnectionString, _apiSettings.AddNewChildPersonalEventQueue);
 
                     _queueClient.CreateIfNotExists();
 

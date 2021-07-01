@@ -4,17 +4,16 @@ services:
   mongosrv:
     image: mongo
 
+  msqlsrv:
+    container_name: msqlsrv
+    image: mcr.microsoft.com/mssql/server:2019-CU11-ubuntu-20.04
+
   childhealthbook.web:
     image: ${DOCKER_REGISTRY-}childhealthbookweb
     build:
       context: .
       dockerfile: ChildHealthBook.Web/Dockerfile
 
-  childhealthbook.identity.api:
-    image: ${DOCKER_REGISTRY-}childhealthbookidentityapi
-    build:
-      context: .
-      dockerfile: ChildHealthBook.Identity.API/Dockerfile
 
 
   childhealthbook.gateway.api:
@@ -43,4 +42,11 @@ services:
     build:
       context: .
       dockerfile: ChildHealthBook.Notification.Service/Dockerfile
+
+
+  childhealthbook.identity.api:
+    image: ${DOCKER_REGISTRY-}childhealthbookidentityapi
+    build:
+      context: .
+      dockerfile: ChildHealthBook.Identity.API/Dockerfile
 

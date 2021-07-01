@@ -5,7 +5,6 @@ namespace ChildHealthBook.Common.WebDtos.ChildDtos
     public class ChildReadDto
     {
         public Guid Id { get; set; }
-
         public Guid ParentId { get; set; }
 
         public DateTime DateOfBirth { get; set; }

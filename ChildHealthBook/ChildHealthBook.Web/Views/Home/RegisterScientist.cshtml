@@ -1,0 +1,49 @@
+﻿@model ChildHealthBook.Common.Identity.DTOs.UserRegisterDTO
+
+<h2 class="text-primary">Sign Up</h2>
+<form method="post" asp-antiforgery="false" asp-action="RegisterScientist" asp-controller="Accounts">
+    <h4 class="text-primary">Create a new Scientist Account</h4>
+    <hr />
+    <div class="text-danger" asp-validation-summary="All"></div>
+
+    <div class="form-group row">
+        <label asp-for="UserName" class="col-md-2">Login</label>
+        <div class="col-md-10">
+            <input asp-for="UserName" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="Email" class="col-md-2">Email</label>
+        <div class="col-md-10">
+            <input asp-for="Email" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="Password" class="col-md-2">Password</label>
+        <div class="col-md-10">
+            <input type="password" asp-for="Password" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="ConfirmPassword" class="col-md-2">Confirm Password</label>
+        <div class="col-md-10">
+            <input type="password" asp-for="ConfirmPassword" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10 offset-md-2">
+            <input type="submit" value="Register" class="btn btn-success">
+        </div>
+    </div>
+
+
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

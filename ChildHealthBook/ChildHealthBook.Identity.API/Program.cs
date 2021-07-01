@@ -1,40 +1,55 @@
-using Azure.Extensions.AspNetCore.Configuration.Secrets;
-using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
+using ChildHealthBook.Identity.API.Authentication;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace ChildHealthBook.Identity.API
+namespace ChildHealthBook
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+            SeedDataIfNotInitialized(host);
+            host.Run();
+        }
+
+        private static void SeedDataIfNotInitialized(IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                try
+                {
+                    Seeder.Initialize(services);
+                }
+                catch (Exception ex)
+                {
+
+                    logger.LogError(ex, "Ann error occured while seeding the database for ThemeHospitalApp");
+                }
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((context, config) =>
-                {
-                    var builtConfiguration = config.Build();
+                //    .ConfigureAppConfiguration((context, config) =>
+                //    {
+                //        var builtConfiguration = config.Build();
 
-                    string kvURL = builtConfiguration["KeyVaultConfig:KVUrl"];
-                    string tenantId = builtConfiguration["KeyVaultConfig:TenantId"];
-                    string clientId = builtConfiguration["KeyVaultConfig:ClientId"];
-                    string clientSecret = builtConfiguration["KeyVaultConfig:ClientSecretId"];
+                //        string kvURL = builtConfiguration["KeyVaultConfig:KVUrl"];
+                //        string tenantId = builtConfiguration["KeyVaultConfig:TenantId"];
+                //        string clientId = builtConfiguration["KeyVaultConfig:ClientId"];
+                //        string clientSecret = builtConfiguration["KeyVaultConfig:ClientSecretId"];
 
-                    var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+                //        var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
 
-                    var client = new SecretClient(new Uri(kvURL), credential);
-                    config.AddAzureKeyVault(client, new AzureKeyVaultConfigurationOptions());
-                })
+                //        var client = new SecretClient(new Uri(kvURL), credential);
+                //        config.AddAzureKeyVault(client, new AzureKeyVaultConfigurationOptions());
+                //    })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

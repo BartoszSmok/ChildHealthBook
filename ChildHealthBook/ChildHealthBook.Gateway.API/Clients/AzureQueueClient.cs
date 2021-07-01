@@ -38,7 +38,7 @@ namespace ChildHealthBook.Gateway.API.Clients
 
         public async Task AddNewPersonalEvent(PersonalEventCreateDto personalEventCreateDto)
         {
-            SendMessageToQueue(_apiSettings.AddNewPersonalEventQueue, JsonSerializer.Serialize(personalEventCreateDto));
+            SendMessageToQueue(_apiSettings.AddNewChildPersonalEventQueue, JsonSerializer.Serialize(personalEventCreateDto));
         }
 
         public async Task SendToNotificationService(ExaminationNotificationDto examinationNotificationDto)

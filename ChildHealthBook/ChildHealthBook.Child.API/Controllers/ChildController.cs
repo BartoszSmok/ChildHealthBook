@@ -11,7 +11,7 @@ using ChildHealthBook.Child.API.Clients;
 namespace ChildHealthBook.Child.API.Controllers
 {
     [ApiController]
-    [Route("/api/[controller]")]
+    [Route("api/[controller]")]
     public class ChildController : ControllerBase
     {
         private readonly ILogger<ChildController> _logger;
@@ -64,15 +64,15 @@ namespace ChildHealthBook.Child.API.Controllers
 
         //api/analytics/ - Get all children data required for anylitcs purposes / GET
         [HttpGet("Analytics")]
-        public async Task<ActionResult<IEnumerable<ChildWithEventsReadDto>>> GetAllChildrenWithEvents(Guid childId)
+        public async Task<ActionResult<IEnumerable<ChildWithEventsReadDto>>> GetAllChildrenWithEvents()
         {
             IEnumerable<ChildWithEventsReadDto> result = await _childRepository.GetAllChildrenWithEvents();
 
             foreach (var item in result)
             {
-                item.MedicalExaminations =  await _eventRepository.GetChildExaminations(childId);
-                item.PersonalEvents = await _eventRepository.GetChildPersonalEvents(childId);
-                item.MedicalEvents = await _eventRepository.GetChildMedicalEvents(childId);
+                item.MedicalExaminations =  await _eventRepository.GetChildExaminations(item.Id);
+                item.PersonalEvents = await _eventRepository.GetChildPersonalEvents(item.Id);
+                item.MedicalEvents = await _eventRepository.GetChildMedicalEvents(item.Id);
             }
 
             return result == null ? NotFound() : Ok(result);

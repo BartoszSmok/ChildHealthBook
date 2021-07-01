@@ -1,0 +1,17 @@
+﻿@using ChildHealthBook.Web.Models.Session;
+@using Newtonsoft.Json;
+@{
+    var userData = new AuthUserSession();
+    if (Context.Request.Cookies["UserData"] != null)
+    {
+        userData = JsonConvert.DeserializeObject<AuthUserSession>(Context.Request.Cookies["UserData"]);
+    }
+}
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome @(userData.AccountType != null 
+        ? $"{userData.AccountType}, {userData.Name} {userData.Surname}" : "Guest")!</h1>
+</div>

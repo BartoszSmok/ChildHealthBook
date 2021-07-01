@@ -1,0 +1,58 @@
+﻿
+@model ChildHealthBook.Web.Models.EventDtos.WebPersonalEventCreateDto
+@{
+    var id = ViewContext.RouteData.Values["id"];
+}
+<form asp-action="PersonalEventCreate" asp-route-id=@id>
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-primary">Add new personal event</h1>
+
+        <hr />
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-2">
+                <label asp-for="DateOfEvent" class="control-label pt-2" style="font-size:20px;">Date</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="DateOfEvent" class="form-control" />
+                <span asp-validation-for="DateOfEvent" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label asp-for="EventTitle" class="control-label pt-2" style="font-size:20px;">Event title</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="EventTitle" class="form-control">
+                <span asp-validation-for="EventTitle" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label asp-for="EventType" class="control-label pt-2" style="font-size:20px;">Event title</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="EventType" class="form-control">
+                <span asp-validation-for="EventType" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label asp-for="Comment" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Comment" class="form-control" />
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            <div class="col-5 offset-2">
+                <a asp-area="" asp-page="ChildDeatils" class="btn-primary btn form-control ">Back to List</a>
+            </div>
+            <div class="col-5">
+                <input type="submit" value="Create" class="btn btn-success form-control" />
+            </div>
+        </div>
+        <div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

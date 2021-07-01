@@ -7,17 +7,21 @@ services:
     ports:
       - "27017:27017"
 
+  msqlsrv:
+    ports:
+      - "9034:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "_Password123"
+      MSSQL_PID: Express
+
   childhealthbook.web:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "9000:80"
 
-  childhealthbook.identity.api:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "9001:80"
+
 
   childhealthbook.gateway.api:
     environment:
@@ -42,3 +46,12 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "9005:80"
+
+  childhealthbook.identity.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:CS=Server=msqlsrv;Database=testdb;User Id=sa;Password=_Password123"
+    depends_on:
+      - msqlsrv
+    ports:
+      - "9001:80"

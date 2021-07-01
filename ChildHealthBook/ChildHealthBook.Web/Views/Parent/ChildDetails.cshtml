@@ -1,0 +1,231 @@
+﻿
+@model ChildHealthBook.Web.Models.ChildDtos.WebChildWithEventsReadDto
+<form asp-action="ChildDetails">
+    <div class="container p-4 border">
+        <div class="row pb-2">
+            <div class="col">
+                <h1 class="text-primary">Personal Details</h1>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        FullName
+                    </th>
+                    <th>
+                        Date of Birth
+                    </th>
+                    <th>
+                        Weight
+                    </th>
+                    <th>
+                        Height
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    <tr>
+                        <td>
+                            @Model.FullName
+                        </td>
+                        <td>
+                            @Model.DateOfBirth.ToString()
+                        </td>
+                        <td>
+                            @Model.CurrentWeight
+                        </td>
+                        <td>
+                            @Model.CurrentHeight
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <br />
+    <div class="container p-4 border">
+        <div class="row pb-2">
+            <div class="col">
+                <h1 class="text-primary">Examinations</h1>
+            </div>
+            <div class="col text-end pt-1">
+                <a class="btn btn-outline-primary" asp-action="ExaminationCreate" asp-route-id="@Model.Id">Add new examination</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Date of examination
+                    </th>
+                    <th>
+                        Examination title
+                    </th>
+                    <th>
+                        Comment
+                    </th>
+                    <th>
+                        Specialist Full Name
+                    </th>
+                    <th>
+                        Address
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    if (Model.MedicalExaminations.Count() > 0)
+                    {
+                        @foreach (var item in Model.MedicalExaminations)
+                        {
+                            <tr>
+                                <td>
+                                    @item.DateOfMedicalExamination.ToString()
+                                </td>
+                                <td>
+                                    @item.ExaminationTitle
+                                </td>
+                                <td>
+                                    @item.Comment
+                                </td>
+                                <td>
+                                    @item.SpecialistFullName
+                                </td>
+                                <td>
+                                    @item.Address
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <br />
+    <div class="container p-4 border">
+        <div class="row pb-2">
+            <div class="col">
+                <h1 class="text-primary">Personal events</h1>
+            </div>
+            <div class="col text-end pt-1">
+                <a class="btn btn-outline-primary" asp-action="PersonalEventCreate" asp-route-id="@Model.Id">Add new personal event</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Date of examination
+                    </th>
+                    <th>
+                        Event title
+                    </th>
+                    <th>
+                        Event Type
+                    </th>
+                    <th>
+                        Comment
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    if (Model.PersonalEvents.Count() > 0)
+                    {
+                        @foreach (var item in Model.PersonalEvents)
+                        {
+                            <tr>
+                                <td>
+                                    @item.DateOfEvent.ToString()
+                                </td>
+                                <td>
+                                    @item.EventTitle
+                                </td>
+                                <td>
+                                    @item.EventType
+                                </td>
+                                <td>
+                                    @item.Comment
+                                </td>
+                                <td>
+                                    <a class="btn btn-info" asp-action="ShareEvent">
+                                        Share
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <br />
+    <div class="container p-4 border">
+        <div class="row pb-2">
+            <div class="col">
+                <h1 class="text-primary">Medical events</h1>
+            </div>
+            <div class="col text-end pt-1">
+                <a class="btn btn-outline-primary" asp-action="MedicalEventCreate" asp-route-id="@Model.Id">Add new medical event</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Date of examination
+                    </th>
+                    <th>
+                        Event title
+                    </th>
+                    <th>
+                        Event type
+                    </th>
+                    <th>
+                        Comment
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    if (Model.MedicalEvents.Count() > 0)
+                    {
+                        @foreach (var item in Model.MedicalEvents)
+                        {
+                            <tr>
+                                <td>
+                                    @item.DateOfEvent.ToString()
+                                </td>
+                                <td>
+                                    @item.EventTitle
+                                </td>
+                                <td>
+                                    @item.EventType
+                                </td>
+                                <td>
+                                    @item.Comment
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</form>

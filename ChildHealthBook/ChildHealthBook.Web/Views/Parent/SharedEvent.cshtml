@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ChildHealthBook.Web.Models.EventDtos.WebSharedEventReadDto>
+
+<div class="container p-4 border">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primary">Shared event by another parent</h1>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    ChildFullName
+                </th>
+                <th>
+                    DateOfEvent
+                </th>
+                <th>
+                    EventTitle
+                </th>
+                <th>
+                    EventType
+                </th>
+                <th>
+                    Comment
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                if (Model.Count() > 0)
+                {
+                    @foreach (var item in Model)
+                    {
+            <tr>
+                <td>
+                    @item.ChildFullName
+                </td>
+                <td>
+                    @item.DateOfEvent.ToString()
+                </td>
+                <td>
+                    @item.EventTitle
+                </td>
+                <td>
+                    @item.EventType
+                </td>
+                <td>
+                    @item.Comment
+                </td>
+            </tr>
+                    }
+                }
+            }
+         </tbody>
+    </table>
+</div>

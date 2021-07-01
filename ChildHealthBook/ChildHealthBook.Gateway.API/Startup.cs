@@ -1,4 +1,8 @@
+using ChildHealthBook.Common.AnalyticsDtos;
 using ChildHealthBook.Gateway.API.Clients;
+using ChildHealthBook.Gateway.API.Communication.Bridge;
+using ChildHealthBook.Gateway.API.Communication.Strategy;
+using ChildHealthBook.Gateway.API.Communication.Strategy.Identity;
 using ChildHealthBook.Gateway.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,11 +44,43 @@ namespace ChildHealthBook.Gateway.API
             });
 
             services.AddControllers();
+            AddIdentityCommunicationBridge(services);
+            AddAnalyticsCommunicationBridges(services);
+            services.AddSwaggerGen();
+        }
+
+        private void AddAnalyticsCommunicationBridges(IServiceCollection services)
+        {
+            services.AddScoped<IdentityCommunicationBridge>();
+            services.AddScoped<IIdentityCommunicationStrategy, HttpClientIdentityCommunication>();
+        }
+
+        private void AddIdentityCommunicationBridge(IServiceCollection services)
+        {
+            services.AddScoped<AnalyticsCommunicationBridge<VaccinationFactorRecord>>();
+            services.AddScoped<AnalyticsCommunicationBridge<IEnumerable<VaccinationFactorRecord>>>();
+            services.AddScoped<AnalyticsCommunicationBridge<ChildrenAverageAgeRecord>>();
+            services.AddScoped<AnalyticsCommunicationBridge<IEnumerable<ChildrenAverageAgeRecord>>>();
+            services.AddScoped<AnalyticsCommunicationBridge<ChildrenAverageCountPerParentRecord>>();
+            services.AddScoped<AnalyticsCommunicationBridge<IEnumerable<ChildrenAverageCountPerParentRecord>>>();
+
+            services.AddScoped<IAnalyticsCommunicationStrategy<VaccinationFactorRecord>, HttpClientCommunicationStrategy<VaccinationFactorRecord>>();
+            services.AddScoped<IAnalyticsCommunicationStrategy<IEnumerable<VaccinationFactorRecord>>, HttpClientCommunicationStrategy<IEnumerable<VaccinationFactorRecord>>>();
+            services.AddScoped<IAnalyticsCommunicationStrategy<ChildrenAverageAgeRecord>, HttpClientCommunicationStrategy<ChildrenAverageAgeRecord>>();
+            services.AddScoped<IAnalyticsCommunicationStrategy<IEnumerable<ChildrenAverageAgeRecord>>, HttpClientCommunicationStrategy<IEnumerable<ChildrenAverageAgeRecord>>>();
+            services.AddScoped<IAnalyticsCommunicationStrategy<ChildrenAverageCountPerParentRecord>, HttpClientCommunicationStrategy<ChildrenAverageCountPerParentRecord>>();
+            services.AddScoped<IAnalyticsCommunicationStrategy<IEnumerable<ChildrenAverageCountPerParentRecord>>, HttpClientCommunicationStrategy<IEnumerable<ChildrenAverageCountPerParentRecord>>>();
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
