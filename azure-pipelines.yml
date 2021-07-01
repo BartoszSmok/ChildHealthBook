@@ -8,8 +8,8 @@ trigger:
       - main
     paths:
       include:
-      - ChildHealthBook/ChildHealthBook.WEB/*
-      - aks/web.yaml
+      - ChildHealthBook/ChildHealthBook.Web/*
+      - manifests/web.yaml
 
 resources:
 - repo: self
