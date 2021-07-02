@@ -26,7 +26,7 @@ namespace ChildHealthBook.Web.Services
         public async Task<IEnumerable<WebChildReadDto>> GetMyChildren(Guid parentId)
         {
             _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
-            string url = $"/Gateway/Parent/{parentId}";
+            string url = $"Gateway/Parent/{parentId}";
             var response = await _httpClient.GetFromJsonAsync<IEnumerable<WebChildReadDto>>(url);
             return response;
         }
@@ -34,7 +34,7 @@ namespace ChildHealthBook.Web.Services
         public async Task<HttpResponseMessage> CreateChild(WebChildCreateDto childCreateDto, Guid parentId)
         {
             _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
-            string url = $"/Gateway/Parent/Child";
+            string url = $"Gateway/Parent/Child";
             var responseMessage = await _httpClient.PostAsJsonAsync(url,
                 new WebChildCreateDto
                 {
@@ -51,7 +51,7 @@ namespace ChildHealthBook.Web.Services
         public async Task<WebChildWithEventsReadDto> GetChildByIdWithEvents(Guid childId)
         {
             _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
-            string url = $"/Gateway/Parent/Child/{childId}";
+            string url = $"Gateway/Parent/Child/{childId}";
 
             var response = await _httpClient.GetFromJsonAsync<WebChildWithEventsReadDto>(url);
            
@@ -61,7 +61,7 @@ namespace ChildHealthBook.Web.Services
         public async Task<HttpResponseMessage> CreatePersonalEvent(PersonalEventCreateDto personalEventCreate)
         {
             _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
-            string url = $"/Gateway/Parent/Child/PersonalEvent";
+            string url = $"Gateway/Parent/Child/PersonalEvent";
 
             var responseMessage = await _httpClient.PostAsJsonAsync(url,
                 new PersonalEventCreateDto
@@ -78,7 +78,7 @@ namespace ChildHealthBook.Web.Services
         public async Task<HttpResponseMessage> AddNewExamination(MedicalExaminationCreateDto medicalExaminationCreateDto)
         {
             _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
-            string url = $"/Gateway/Parent/Child/Examination";
+            string url = $"Gateway/Parent/Child/Examination";
             var responseMessage = await _httpClient.PostAsJsonAsync(url,
                 new MedicalExaminationCreateDto
                 {
@@ -97,7 +97,7 @@ namespace ChildHealthBook.Web.Services
         public async Task<HttpResponseMessage> AddNewMedicalEvent(MedicalEventCreateDto medicalEventCreateDto)
         {
             _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
-            string url = $"/Gateway/Parent/Child/MedicalEvent";
+            string url = $"Gateway/Parent/Child/MedicalEvent";
             var responseMessage = await _httpClient.PostAsJsonAsync(url,
                 new MedicalEventCreateDto
                 {
@@ -113,7 +113,7 @@ namespace ChildHealthBook.Web.Services
         public async Task<IEnumerable<SharedEventReadDto>> GetSharedEventByParentId(Guid parentId)
         {
             _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
-            string url = $"/Gateway/Parent/Child/ShareEvent/{parentId}";
+            string url = $"gateway/Parent/Child/ShareEvent/{parentId}";
             var response = await _httpClient.GetFromJsonAsync<IEnumerable<SharedEventReadDto>>(url);
             return response;
         }
@@ -121,7 +121,7 @@ namespace ChildHealthBook.Web.Services
         internal async Task<IEnumerable<WebParentReadDto>> GetParentList()
         {
             _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
-            string url = $"/api/Identity/GetAllParents";
+            string url = $"api/Identity/GetAllParents";
             var response = await _httpClient.GetFromJsonAsync<IEnumerable<UserData>>(url);
 
             List<WebParentReadDto> result = new List<WebParentReadDto>();
@@ -146,7 +146,7 @@ namespace ChildHealthBook.Web.Services
         internal async void AddNewShare(Guid id, Guid val)
         {
             _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
-            string url = $"/Gateway/Parent/Child/ShareEvent";
+            string url = $"Gateway/Parent/Child/ShareEvent";
             await _httpClient.PostAsJsonAsync(url, new ShareEventCreateDto { 
                 EventId = id,
                 ParentId = val
