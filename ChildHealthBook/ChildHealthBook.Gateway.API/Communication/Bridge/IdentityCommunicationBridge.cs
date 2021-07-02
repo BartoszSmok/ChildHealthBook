@@ -19,14 +19,14 @@ namespace ChildHealthBook.Gateway.API.Communication.Bridge
             return await _identityCommunication.GetToken(url, credentials);
         }
 
-        public async Task<bool> RegisterParent(string url, ParentRegisterDTO parentData)
+        public async Task RegisterParent(string url, ParentRegisterDTO parentData)
         {
-            return await _identityCommunication.RegisterParent(url, parentData);
+            await _identityCommunication.RegisterParent(url, parentData);
         }
 
-        public async Task<bool> RegisterScientist(string url, UserRegisterDTO userData)
+        public async Task RegisterScientist(string url, UserRegisterDTO userData)
         {
-            return await _identityCommunication.RegisterScientist(url, userData);
+            await _identityCommunication.RegisterScientist(url, userData);
         }
 
         public async Task<IEnumerable<UserData>> GetParentsFromDb(string url)

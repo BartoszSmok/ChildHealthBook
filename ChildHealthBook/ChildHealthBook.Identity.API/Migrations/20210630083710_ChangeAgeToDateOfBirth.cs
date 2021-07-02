@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ChildHealthBook.Identity.API.Migrations
 {
-    public partial class init : Migration
+    public partial class ChangeAgeToDateOfBirth : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -29,8 +29,8 @@ namespace ChildHealthBook.Gateway.API.Controllers
             try
             {
                 string url = _identityApiBaseUrl + "/api/accounts/user/registerParent";
-                bool isSuccess = await _identityCommunicationBrige.RegisterParent(url, parentUpsertDto);
-                return isSuccess ? Ok() : BadRequest();
+                await _identityCommunicationBrige.RegisterParent(url, parentUpsertDto); 
+                return Ok();
             }
             catch (Exception e)
             {
@@ -45,8 +45,8 @@ namespace ChildHealthBook.Gateway.API.Controllers
             try
             {
                 string url = _identityApiBaseUrl + "/api/accounts/user/registerScientist";
-                bool isSuccess = await _identityCommunicationBrige.RegisterScientist(url, userUpsertDto);
-                return isSuccess ? Ok() : BadRequest(); 
+                await _identityCommunicationBrige.RegisterScientist(url, userUpsertDto);
+                return Ok();
             }
             catch (Exception e)
             {
@@ -61,11 +61,7 @@ namespace ChildHealthBook.Gateway.API.Controllers
             try
             {
                 string url = _identityApiBaseUrl + "/api/tokens/token";
-                string token = await _identityCommunicationBrige.GetTokenAsString(url, userLoginDTO);
-                if(token == string.Empty){
-                    return BadRequest();
-                }
-                return Ok(token);
+                return Ok(await _identityCommunicationBrige.GetTokenAsString(url, userLoginDTO));
             }
             catch (Exception e)
             {
