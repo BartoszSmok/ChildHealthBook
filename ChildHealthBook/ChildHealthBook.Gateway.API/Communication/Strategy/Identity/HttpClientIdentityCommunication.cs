@@ -1,5 +1,6 @@
 ﻿using ChildHealthBook.Common.Identity.DTOs;
 using ChildHealthBook.Gateway.API.Communication.Strategy.Identity;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -33,22 +34,22 @@ namespace ChildHealthBook.Gateway.API.Communication.Strategy
             return await ValidateResponseStatusAndGetContent(response);
         }
 
-        public async Task RegisterParent(string url, ParentRegisterDTO parentData)
+        public async Task<bool> RegisterParent(string url, ParentRegisterDTO parentData)
         {
             var json = JsonConvert.SerializeObject(parentData);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _http.PostAsync(url, data);
 
-            await ValidateResponseStatusAndGetContent(response);
+            return !string.IsNullOrEmpty(await ValidateResponseStatusAndGetContent(response));
         }
 
-        public async Task RegisterScientist(string url, UserRegisterDTO userData)
+        public async Task<bool> RegisterScientist(string url, UserRegisterDTO userData)
         {
             var json = JsonConvert.SerializeObject(userData);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _http.PostAsync(url, data);
 
-            await ValidateResponseStatusAndGetContent(response);
+            return !string.IsNullOrEmpty(await ValidateResponseStatusAndGetContent(response));
         }
 
         private async Task<string> ValidateResponseStatusAndGetContent(HttpResponseMessage response)
@@ -56,6 +57,10 @@ namespace ChildHealthBook.Gateway.API.Communication.Strategy
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadAsStringAsync();
+            }
+            if((int)response.StatusCode == StatusCodes.Status400BadRequest)
+            {
+                return string.Empty;
             }
             else
             {

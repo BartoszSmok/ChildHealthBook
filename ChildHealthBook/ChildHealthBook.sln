@@ -26,7 +26,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildHealthBook.Web", "Chil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildHealthBook.Identity.API", "ChildHealthBook.Identity.API\ChildHealthBook.Identity.API.csproj", "{CFC13B09-004E-42FD-A1A6-1DD593D17DB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildHealthBook.Notification.Service", "ChildHealthBook.Notification.Service\ChildHealthBook.Notification.Service.csproj", "{C5DEACF0-0731-465D-BD2D-490979B8B297}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildHealthBook.Notification.Service", "ChildHealthBook.Notification.Service\ChildHealthBook.Notification.Service.csproj", "{C6F4EDFC-894B-4C9B-A39B-4CAE1D62D29E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,10 +62,10 @@ Global
 		{CFC13B09-004E-42FD-A1A6-1DD593D17DB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFC13B09-004E-42FD-A1A6-1DD593D17DB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFC13B09-004E-42FD-A1A6-1DD593D17DB1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5DEACF0-0731-465D-BD2D-490979B8B297}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5DEACF0-0731-465D-BD2D-490979B8B297}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5DEACF0-0731-465D-BD2D-490979B8B297}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5DEACF0-0731-465D-BD2D-490979B8B297}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6F4EDFC-894B-4C9B-A39B-4CAE1D62D29E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F4EDFC-894B-4C9B-A39B-4CAE1D62D29E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F4EDFC-894B-4C9B-A39B-4CAE1D62D29E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F4EDFC-894B-4C9B-A39B-4CAE1D62D29E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

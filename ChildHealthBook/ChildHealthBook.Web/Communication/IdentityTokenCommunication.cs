@@ -1,4 +1,5 @@
 ﻿using ChildHealthBook.Common.Identity.DTOs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
@@ -29,10 +30,15 @@ namespace ChildHealthBook.Web.Communication
 
         private async Task<string> ValidateResponseStatusAndGetContent(HttpResponseMessage response)
         {
+            var data =  await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-                var token = await response.Content.ReadAsStringAsync();
-                return token;
+                return data;
+            }
+            
+            if ((int)response.StatusCode == StatusCodes.Status500InternalServerError)
+            {
+                throw new Exception($"Internal server error, response content: {(int)response.StatusCode}");
             }
 
             return string.Empty;

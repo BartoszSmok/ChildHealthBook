@@ -26,8 +26,7 @@ namespace ChildHealthBook
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AuthenticationDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("CS")));
-
+                options.UseSqlServer(Configuration.GetConnectionString("CS")));
             AddIdentityWithOptionsToDI(services);
             AddAutheticationToDI(services);
 

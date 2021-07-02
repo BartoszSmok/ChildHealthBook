@@ -7,9 +7,9 @@ namespace ChildHealthBook.Gateway.API.Communication.Strategy.Identity
     public interface IIdentityCommunicationStrategy
     {
         Task<string> GetToken(string url, UserLoginDTO credentials);
-        Task RegisterParent(string url, ParentRegisterDTO parentData);
+        Task<bool> RegisterParent(string url, ParentRegisterDTO parentData);
 
-        Task RegisterScientist(string url, UserRegisterDTO userData);
+        Task<bool> RegisterScientist(string url, UserRegisterDTO userData);
         Task<IEnumerable<UserData>> GetParentsFromDb(string connectionKey = "");
     }
 }

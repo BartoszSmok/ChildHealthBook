@@ -4,6 +4,7 @@ using Common.Identity.Setup;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,10 +30,18 @@ namespace ChildHealthBook.Controllers
 
         [HttpGet]
         [Route("user/getUsers")]
-        public ActionResult<IEnumerable<UserData>> GetUsersCount()
+        public ActionResult<IEnumerable<UserData>> GetUsers()
         {
             _logger.LogInformation("Fetching all users from identity in AccountsController...");
             return Ok(_mapper.Map<IEnumerable<UserData>>(_userManager.Users.Where(u => u.AccountType == "Parent").ToList()));
+        }
+
+        [HttpGet]
+        [Route("user/getUsers/{userId}")]
+        public ActionResult<UserData> GetUserById(Guid userId)
+        {
+            _logger.LogInformation("Fetching user by id from AccountsController...");
+            return Ok(_mapper.Map<IEnumerable<UserData>>(_userManager.Users.Where(u => u.Id == userId).FirstOrDefault()));
         }
         /// <summary>
         /// This POST method registers API user
