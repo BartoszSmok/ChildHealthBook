@@ -1,4 +1,5 @@
-﻿using ChildHealthBook.Common.WebDtos.ChildDtos;
+﻿using ChildHealthBook.Common.Identity.DTOs;
+using ChildHealthBook.Common.WebDtos.ChildDtos;
 using ChildHealthBook.Common.WebDtos.EventDtos;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,7 @@ namespace ChildHealthBook.Gateway.API.Services
         Task AddNewPersonalEvent(PersonalEventCreateDto personalEventCreateDto);
         Task AddNewMedicalEvent(MedicalEventCreateDto medicalEventCreateDto);
         Task AddNewExamination(MedicalExaminationCreateDto medicalExaminationCreateDto);
+        Task ShareEventWithParent(ShareEventCreateDto shareEventCreateDto);
+        Task<IEnumerable<SharedEventReadDto>> GetSharedEventByParentId(Guid parentId);
     }
 }

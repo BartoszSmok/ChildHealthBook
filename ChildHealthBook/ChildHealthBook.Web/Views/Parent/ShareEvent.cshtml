@@ -1,5 +1,17 @@
 ﻿
 @model IEnumerable<ChildHealthBook.Web.Models.IdentityDtos.WebParentReadDto>
+@{
+    var eventId = ViewContext.RouteData.Values["id"];
+}
+@using ChildHealthBook.Web.Models.Session;
+@using Newtonsoft.Json;
+@{
+    var userData = new AuthUserSession();
+    if (Context.Request.Cookies["UserData"] != null)
+    {
+        userData = JsonConvert.DeserializeObject<AuthUserSession>(Context.Request.Cookies["UserData"]);
+    }  
+}
 
 <form asp-action="ShareEvent">
     <div class="container p-4 border">
@@ -25,19 +37,29 @@
                     {
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @item.FirstName + @item.LastName
-                                </td>
-                                <td>
-                                    <a class="btn btn-info" asp-action="Share">Share
-                                    </a>
-                                </td>
-                            </tr>
+                            if (item.Id != userData.Id)
+                            {
+                <tr>
+                    <td>
+                        @item.FullName
+                    </td>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @eventId
+                    </td>
+                    <td>
+                        <a class="btn btn-info" asp-action="Share" asp-route-id="@eventId" asp-route-val="@item.Id">
+                            Share
+                        </a>
+                    </td>
+                </tr>
+                            }
                         }
                     }
                 }
-                        </tbody>
+            </tbody>
         </table>
     </div>
 </form>

@@ -1,6 +1,8 @@
-﻿using ChildHealthBook.Common.WebDtos.ChildDtos;
+﻿using ChildHealthBook.Common.Identity.DTOs;
+using ChildHealthBook.Common.WebDtos.ChildDtos;
 using ChildHealthBook.Common.WebDtos.EventDtos;
 using ChildHealthBook.Web.Models.ChildDtos;
+using ChildHealthBook.Web.Models.IdentityDtos;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -107,6 +109,48 @@ namespace ChildHealthBook.Web.Services
 
                 });
             return responseMessage;
+        }
+        public async Task<IEnumerable<SharedEventReadDto>> GetSharedEventByParentId(Guid parentId)
+        {
+            _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
+            string url = $"/Gateway/Parent/Child/ShareEvent/{parentId}";
+            var response = await _httpClient.GetFromJsonAsync<IEnumerable<SharedEventReadDto>>(url);
+            return response;
+        }
+
+        internal async Task<IEnumerable<WebParentReadDto>> GetParentList()
+        {
+            _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
+            string url = $"/api/Identity/GetAllParents";
+            var response = await _httpClient.GetFromJsonAsync<IEnumerable<UserData>>(url);
+
+            List<WebParentReadDto> result = new List<WebParentReadDto>();
+
+            if (response != null)
+            {
+                foreach (var item in response)
+                {
+                    WebParentReadDto webParentReadDto = new WebParentReadDto
+                    {
+                        Id = item.Id,
+                        FullName = item.Name + " " + item.Surname
+                    };
+
+                    result.Add(webParentReadDto);
+                }
+            }
+
+            return result;
+        }
+
+        internal async void AddNewShare(Guid id, Guid val)
+        {
+            _httpClient.BaseAddress = new Uri(_webSettings.GatewayAPI);
+            string url = $"/Gateway/Parent/Child/ShareEvent";
+            await _httpClient.PostAsJsonAsync(url, new ShareEventCreateDto { 
+                EventId = id,
+                ParentId = val
+            });
         }
     }
 

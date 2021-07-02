@@ -1,5 +1,6 @@
 ﻿using ChildHealthBook.Common.Identity.DTOs;
 using ChildHealthBook.Gateway.API.Communication.Strategy.Identity;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ChildHealthBook.Gateway.API.Communication.Bridge
@@ -26,6 +27,11 @@ namespace ChildHealthBook.Gateway.API.Communication.Bridge
         public async Task RegisterScientist(string url, UserRegisterDTO userData)
         {
             await _identityCommunication.RegisterScientist(url, userData);
+        }
+
+        public async Task<IEnumerable<UserData>> GetParentsFromDb(string url)
+        {
+            return await _identityCommunication.GetParentsFromDb(url);
         }
     }
 }

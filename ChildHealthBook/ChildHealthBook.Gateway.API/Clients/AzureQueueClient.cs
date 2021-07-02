@@ -43,8 +43,12 @@ namespace ChildHealthBook.Gateway.API.Clients
 
         public async Task SendToNotificationService(ExaminationNotificationDto examinationNotificationDto)
         {
-            Console.WriteLine("DUPA" + _apiSettings.SendExaminationToNotificationQueue);
             SendMessageToQueue(_apiSettings.SendExaminationToNotificationQueue, JsonSerializer.Serialize(examinationNotificationDto));
+        }
+
+        public async Task ShareEventWithParent(ShareEventCreateDto shareEventCreateDto)
+        {
+            SendMessageToQueue(_apiSettings.ShareEventQueue, JsonSerializer.Serialize(shareEventCreateDto));
         }
 
         private void SendMessageToQueue(string queueName, string queueMessage)

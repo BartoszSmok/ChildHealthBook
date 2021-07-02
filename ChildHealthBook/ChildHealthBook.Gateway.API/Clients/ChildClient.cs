@@ -1,4 +1,5 @@
 ﻿using ChildHealthBook.Common.WebDtos.ChildDtos;
+using ChildHealthBook.Common.WebDtos.EventDtos;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -34,8 +35,12 @@ namespace ChildHealthBook.Gateway.API.Clients
 
         internal async Task<ChildReadDto> GetChildById(Guid childId)
         {
-            Console.WriteLine("2a");
             return await _httpClient.GetFromJsonAsync<ChildReadDto>($"/api/child/{childId}");
+        }
+
+        internal async Task<IEnumerable<SharedEventReadDto>> GetSharedEventByParentId(Guid parentId)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<SharedEventReadDto>>($"/api/child/ShareEvent/{parentId}");
         }
     }
 }

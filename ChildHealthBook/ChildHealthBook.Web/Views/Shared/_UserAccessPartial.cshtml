@@ -13,9 +13,6 @@
 {
 <div class="d-flex align-items-center">
     <li class="nav-item pt-leg-1">
-        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-    </li>
-    <li class="nav-item pt-leg-1">
         <a class="nav-link" asp-area="" asp-controller="Parent" asp-action="ChildrenIndex">My Children</a>
     </li>
     <li class="nav-item pt-leg1">
@@ -26,9 +23,6 @@
 else if (userData.AccountType == "Scientist")
 {
 <div class="d-flex align-items-center">
-    <li class="nav-item pt-leg-1">
-        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-    </li>
     <li class="nav-item pt-leg-1">
         <a class="nav-link" asp-area="" asp-controller="Analytics" asp-action="AnalysisIndex">Analysis</a>
     </li>
@@ -42,9 +36,6 @@ else if (userData.AccountType == "Scientist")
     {
 
 <div class="d-flex align-items-center">
-    <li class="nav-item pt-leg-1">
-        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-    </li>
     <li class="nav-item">
         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
     </li>
@@ -57,7 +48,7 @@ else if (userData.AccountType == "Scientist")
     {
 <div class="d-flex align-items-center">
     <li class="nav-item">
-        <p class="nav-link m-0" style="cursor: pointer">@(userData.AccountType == "Scientist" ? $"{userData.Name} {@userData.Surname}" : $"{userData.Email}")</p>
+        <p class="nav-link m-0" style="cursor: pointer">@(userData.AccountType != "Scientist" ? $"{userData.Name} {@userData.Surname}" : $"{userData.Email}")</p>
     </li>
 
     <li class="nav-item">

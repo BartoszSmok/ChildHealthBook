@@ -1,4 +1,5 @@
 ﻿using ChildHealthBook.Common.Identity.DTOs;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ChildHealthBook.Gateway.API.Communication.Strategy.Identity
@@ -9,5 +10,6 @@ namespace ChildHealthBook.Gateway.API.Communication.Strategy.Identity
         Task RegisterParent(string url, ParentRegisterDTO parentData);
 
         Task RegisterScientist(string url, UserRegisterDTO userData);
+        Task<IEnumerable<UserData>> GetParentsFromDb(string connectionKey = "");
     }
 }

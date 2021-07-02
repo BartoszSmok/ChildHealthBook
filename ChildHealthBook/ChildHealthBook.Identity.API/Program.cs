@@ -12,26 +12,27 @@ namespace ChildHealthBook
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+            SeedDataIfNotInitialized(host);
             host.Run();
         }
 
-        //private static void SeedDataIfNotInitialized(IHost host)
-        //{
-        //    using (var scope = host.Services.CreateScope())
-        //    {
-        //        var services = scope.ServiceProvider;
-        //        var logger = services.GetRequiredService<ILogger<Program>>();
-        //        try
-        //        {
-        //            Seeder.Initialize(services);
-        //        }
-        //        catch (Exception ex)
-        //        {
+        private static void SeedDataIfNotInitialized(IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                try
+                {
+                    Seeder.Initialize(services);
+                }
+                catch (Exception ex)
+                {
 
-        //            logger.LogError(ex, "An error occured while seeding the database for ChildHealthBook");
-        //        }
-        //    }
-        //}
+                    logger.LogError(ex, "Ann error occured while seeding the database for ThemeHospitalApp");
+                }
+            }
+        }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)

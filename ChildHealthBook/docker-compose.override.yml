@@ -50,7 +50,7 @@ services:
   childhealthbook.identity.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:CS=Server=msqlsrv;Database=testdb;User Id=sa;Password=_Password123"
+      - "ConnectionStrings:CS=Server=tcp:server-tj.database.windows.net,1433;Initial Catalog=ChildHealthBookIdentityDb-TJ;Persist Security Info=False;User ID=dreamwalker314;Password=moto123!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
     depends_on:
       - msqlsrv
     ports:

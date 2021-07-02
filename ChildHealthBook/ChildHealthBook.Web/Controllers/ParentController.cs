@@ -2,11 +2,13 @@
 using ChildHealthBook.Web.CookieServices.Validator;
 using ChildHealthBook.Web.Models.ChildDtos;
 using ChildHealthBook.Web.Models.EventDtos;
+using ChildHealthBook.Web.Models.IdentityDtos;
 using ChildHealthBook.Web.Models.Session;
 using ChildHealthBook.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ChildHealthBook.Web.Controllers
@@ -188,25 +190,30 @@ namespace ChildHealthBook.Web.Controllers
             return View(webMedicalEventCreateDto);
         }
         
-        public async Task<IActionResult> ShareEvent(Guid eventId)
+        [HttpGet] // id -> eventId
+        public async Task<IActionResult> ShareEvent([FromRoute] Guid id)
         {
             if (_cookieValidator.IsCookiePresent(Request))
             {
                 if (_cookieValidator.IsRoleValid(Request, "Parent"))
                 {
-                    return View();
+                    IEnumerable<WebParentReadDto> parentList = await _parentService.GetParentList();
+
+                    return View(parentList);
                 }
             }
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Share(Guid eventId)
+        [HttpGet] // id -> eventid, val -> parent id
+        public async Task<IActionResult> Share([FromRoute] Guid id, [FromRoute] Guid val)
         {
             if (_cookieValidator.IsCookiePresent(Request))
             {
                 if (_cookieValidator.IsRoleValid(Request, "Parent"))
                 {
-                    return RedirectToAction(nameof(ChildDetails));
+                    _parentService.AddNewShare(id, val);
+                    return RedirectToAction("ChildrenIndex", "Parent");
                 }
             }
             return RedirectToAction("Index", "Home");
@@ -214,14 +221,27 @@ namespace ChildHealthBook.Web.Controllers
 
         public async Task<IActionResult> SharedEvent()
         {
+            //IEnumerable<WebSharedEventReadDto> vaccinationFactorHistory = new List<WebSharedEventReadDto>
+            //{
+            //    new WebSharedEventReadDto{ChildFullName = "Adas", EventType="medical", Comment="succes", DateOfEvent=DateTime.Now, EventTitle="title"},
+            //    new WebSharedEventReadDto{ChildFullName = "Ewa", EventType="inny", Comment="succes2", DateOfEvent=DateTime.Now, EventTitle="title2"},
+            //    new WebSharedEventReadDto{ChildFullName = "marek", EventType="medical3", Comment="succes", DateOfEvent=DateTime.Now, EventTitle="3title"}
+            //};
+            //    return View(vaccinationFactorHistory);
             if (_cookieValidator.IsCookiePresent(Request))
             {
                 if (_cookieValidator.IsRoleValid(Request, "Parent"))
-                {
-                    return View();
+                { 
+                    var userData = JsonConvert.DeserializeObject<AuthUserSession>(Request.Cookies["UserData"]);
+                    var parentId = userData.Id;
+                    var sharedEvents = await _parentService.GetSharedEventByParentId(parentId);
+                    if (sharedEvents != null)
+                    {
+                        return View(sharedEvents);
+                    }
                 }
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("ChildrenIndex", "Parent");
         }
     }
 }

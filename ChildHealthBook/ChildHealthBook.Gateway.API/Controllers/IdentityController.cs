@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ChildHealthBook.Gateway.API.Controllers
@@ -60,16 +61,20 @@ namespace ChildHealthBook.Gateway.API.Controllers
             try
             {
                 string url = _identityApiBaseUrl + "/api/tokens/token";
-                string token = await _identityCommunicationBrige.GetTokenAsString(url, userLoginDTO);
-                if(token == string.Empty){
-                    return BadRequest();
-                }
-                return Ok(token);
+                return Ok(await _identityCommunicationBrige.GetTokenAsString(url, userLoginDTO));
             }
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
+        }
+
+        [HttpGet("GetAllParents")]
+        public async Task<ActionResult<IEnumerable<UserData>>> GetAllParents()
+        {
+            string url = _identityApiBaseUrl + "/api/Accounts/user/getUsers";
+            var result = await _identityCommunicationBrige.GetParentsFromDb(url);
+            return result == null ? NotFound() : Ok(result);
         }
     }
 }
